@@ -1,10 +1,5 @@
 package com.example.flutter_app_new
 
-import android.app.WallpaperManager
-import android.graphics.BitmapFactory
-import android.os.Build
-import android.widget.Toast
-import com.mulgundkar.wallpaper_manager.WallpaperManagerPlugin
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
@@ -12,8 +7,6 @@ import io.flutter.plugin.common.MethodChannel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.io.IOException
-import java.util.*
 
 class MainActivity: FlutterActivity() {
     private val UPDATE_WALLPAPER_CHANNEL = "update_wallpaper"
@@ -45,8 +38,10 @@ class MainActivity: FlutterActivity() {
             observable.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe ({
+                        FileUtils.removeFilePath(context, path)
                         result.success("ok")
                     }, {
+                        FileUtils.removeFilePath(context, path)
                         result.notImplemented()
                     })
         }

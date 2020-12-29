@@ -42,7 +42,7 @@ class _WallpaperState extends State<WallpaperDialog>{
       children: [
         RichText(
           text: TextSpan(
-            text: "Select your option",
+            text: "Select one",
             style: CommonStyle.titleTextStyle
           )
         ),
@@ -151,13 +151,19 @@ class _WallpaperState extends State<WallpaperDialog>{
     );
   }
 
-  Widget _buildLoading(){
-    return CircularProgressIndicator(
-      valueColor: AlwaysStoppedAnimation(Colors.green),
+  Widget _buildLoading() {
+    return Padding(
+      padding: EdgeInsets.all(30),
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation(Colors.green),
+      ),
     );
   }
 
   Widget _buildComplete(){
-    return SvgPicture.asset("assets/ic_completed.svg");
+    return Padding(
+      padding: EdgeInsets.all(30),
+      child: SvgPicture.asset("assets/ic_completed.svg")
+    );
   }
 }

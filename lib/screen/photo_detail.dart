@@ -253,6 +253,6 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ImageFullPage(_photo.src.original)));
+            builder: (context) => ImageFullPage(_photo)));
   }
 }
