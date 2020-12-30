@@ -4,9 +4,8 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Build
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
 
 class WallpaperHelper {
     companion object {

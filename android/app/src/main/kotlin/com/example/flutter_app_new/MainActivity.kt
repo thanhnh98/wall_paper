@@ -38,11 +38,11 @@ class MainActivity: FlutterActivity() {
             observable.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe ({
-                        FileUtils.removeFilePath(context, path)
-                        result.success("ok")
+                        //FileUtils.removeFilePath(context, path)
+                        result.success(path)
                     }, {
-                        FileUtils.removeFilePath(context, path)
-                        result.notImplemented()
+                        //FileUtils.removeFilePath(context, path)
+                        result.success("null")
                     })
         }
     }

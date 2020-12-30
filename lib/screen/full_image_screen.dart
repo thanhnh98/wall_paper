@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_new/dialog/wallpaper_location_picker_dialog.dart';
 import 'package:flutter_app_new/list_image/photo/photo_detail_bloc.dart';
 import 'package:flutter_app_new/model/photo.dart';
+import 'package:flutter_app_new/widget/download_progress_provider.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ImageFullPage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _ImageFullPageState extends State<ImageFullPage> {
   bool _isImageTaped = false;
 
   _ImageFullPageState(this._photo) {
-    _photoBloc = new PhotoDetailBloc(_photo);
+    _photoBloc = DownloadProgressProvider.of(context, photo: _photo);
   }
 
   @override
@@ -79,34 +80,35 @@ class _ImageFullPageState extends State<ImageFullPage> {
   }
 
   Widget _buildIconDownload() {
-    return StreamBuilder<int>(
-        stream: _photoBloc.imageDownloadedPercent,
-        builder: (context, snapShot) {
-          print("data ${snapShot.data}");
-          if (snapShot == null || snapShot.data == null) {
-            return GestureDetector(
-                onTap: () {
-                  _photoBloc.downloadImage(_photo.src.original);
-                },
-                child: _buildIcon(
-                  Icon(
-                    Icons.arrow_downward_outlined,
-                    size: 50,
-                    color: Colors.white70,
-                  ),
+    return DownloadProgressProvider(
+        data: _photo,
+        child: StreamBuilder<int>(
+            stream: _photoBloc.imageDownloadedPercent,
+            builder: (context, snapShot) {
+              if (snapShot == null || snapShot.data == null) {
+                return GestureDetector(
+                    onTap: () {
+                      _photoBloc.downloadImage(_photo.src.original);
+                    },
+                    child: _buildIcon(
+                      Icon(
+                        Icons.arrow_downward_outlined,
+                        size: 50,
+                        color: Colors.white70,
+                      ),
+                    ));
+              } else if (snapShot.data == 100) {
+                return _buildIcon(Center(
+                  child: SvgPicture.asset("assets/ic_completed.svg",),
                 ));
-          } else if (snapShot.data == 100) {
-            return _buildIcon(Center(
-              child: SvgPicture.asset("assets/ic_completed.svg",),
-            ));
-          } else {
-            return _buildIcon(
-              CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation(Colors.green),
-              ),
-            );
-          }
-        });
+              } else {
+                return _buildIcon(
+                  CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation(Colors.green),
+                  ),
+                );
+              }
+            }));
   }
 
   Widget _buildIconSetBackground(context) {

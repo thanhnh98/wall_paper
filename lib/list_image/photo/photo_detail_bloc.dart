@@ -10,9 +10,11 @@ import 'package:url_launcher/url_launcher.dart';
 class PhotoDetailBloc extends Bloc<PhotoDetailEvent, Photo>{
   Photo _photo;
   StreamController<int> _imageDownloadStream;
+  var _lastPathDownloaded = "";
+
   PhotoDetailBloc(Photo photo) : super(photo){
     this._photo = photo;
-    _imageDownloadStream = StreamController();
+    _imageDownloadStream = StreamController.broadcast();
   }
 
   void openUrl(String url) async {
@@ -25,12 +27,13 @@ class PhotoDetailBloc extends Bloc<PhotoDetailEvent, Photo>{
 
   void downloadImage(String url) async {
     _imageDownloadStream.add(0);
-    bool isDownloadSuccess =  await ImageDownloadHelper.downloadImageUrl(url);
     ImageDownloader.callback(onProgressUpdate: (String imageId, int progress) {
-      print("callback: percent = $progress");
       _imageDownloadStream.add(progress);
     });
-    print("DOWNLOAD STATUS: $isDownloadSuccess");
+    String pathResult =  await ImageDownloadHelper.downloadImageUrl(url);
+
+    _lastPathDownloaded = pathResult;
+    print("SAVED AT: $pathResult");
   }
 
   @override

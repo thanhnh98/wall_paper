@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:isolate';
 
-import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_app_new/common/image_downloader.dart';
 import 'package:flutter_app_new/list_image/wall_paper/wall_paper_event.dart';
 import 'package:flutter_app_new/model/photo.dart';
@@ -11,6 +11,8 @@ class WallPaperBloc{
   StreamController<WallPaperEvent> _homeScreenStreamController;
   StreamController<WallPaperEvent> _lockScreenStreamController;
   StreamController<WallPaperEvent> _bothScreenStreamController;
+
+  String _lastPathDownloaded;
 
 
   WallPaperBloc(this._photo){
@@ -37,12 +39,25 @@ class WallPaperBloc{
     }
     stream.add(WallPaperEvent.LOADING);
 
-    bool isSuccessful = await ImageDownloadHelper.setBackground(_photo.src.original, type);
+    String pathDownloaded;
 
-    if(isSuccessful)
-      stream.add(WallPaperEvent.COMPLETED);
-    else
+    if(_lastPathDownloaded != null) {
+      try {
+        pathDownloaded = await ImageDownloadHelper.setBackgroundOnly(_lastPathDownloaded, type);
+      }catch(e){
+        pathDownloaded = await ImageDownloadHelper.setDownloadAndBackground(_photo.src.original, type);
+      }
+    }
+    else {
+      pathDownloaded = await ImageDownloadHelper.setDownloadAndBackground(_photo.src.original, type);
+    }
+
+    if(pathDownloaded == null || pathDownloaded == ImageDownloadHelper.RESULT_FAILED)
       stream.add(WallPaperEvent.ERROR);
+    else {
+      this._lastPathDownloaded = pathDownloaded;
+      stream.add(WallPaperEvent.COMPLETED);
+    }
   }
 
 
