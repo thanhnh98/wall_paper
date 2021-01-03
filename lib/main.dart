@@ -6,7 +6,11 @@ import 'package:flutter_app_new/list_image/album/album_event.dart';
 import 'package:flutter_app_new/model/album.dart';
 import 'package:flutter_app_new/screen/album.dart';
 import 'package:flutter_app_new/screen/photo_detail.dart';
+import 'package:flutter_app_new/widget/options_button_span.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'generated/l10n.dart';
 
 void main() {
   runApp(
@@ -33,6 +37,14 @@ class App extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+
+      ],
+      supportedLocales: S.delegate.supportedLocales,
     );
   }
 }

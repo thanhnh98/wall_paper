@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
 import 'package:flutter_app_new/dialog/wallpaper_location_picker_dialog.dart';
+import 'package:flutter_app_new/generated/l10n.dart';
 import 'package:flutter_app_new/list_image/photo/photo_detail_bloc.dart';
 import 'package:flutter_app_new/model/photo.dart';
 import 'package:flutter_app_new/widget/download_progress_provider.dart';
@@ -79,7 +80,7 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildTitle("Information"),
+                  _buildTitle(S.current.info),
                   RichText(
                       text: TextSpan(
                           text: "(${_photo.width}x${_photo.height})",
@@ -118,7 +119,7 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildTitle("Options"),
+                    _buildTitle(S.current.options),
                     SizedBox(
                       height: 10,
                     ),
@@ -214,7 +215,7 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RichText(text: TextSpan(text: "Photo by ")),
+            RichText(text: TextSpan(text: S.current.photo_by)),
             Flexible(
                 child: RichText(
               text: TextSpan(
@@ -228,7 +229,7 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
         ),
         Row(
           children: [
-            RichText(text: TextSpan(text: "Contact ")),
+            RichText(text: TextSpan(text: S.current.contact)),
             Flexible(
               child: GestureDetector(
                 onTap: () {

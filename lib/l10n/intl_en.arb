@@ -1,0 +1,10 @@
+{
+  "select_one": "Select one",
+  "info": "Info",
+  "options": "Options",
+  "photo_by": "Photo by ",
+  "contact": "Contact ",
+  "lock_screen": "Lock Screen",
+  "home_screen": "Home Screen",
+  "both_screens": "Both Screens"
+}

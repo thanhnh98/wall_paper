@@ -7,6 +7,7 @@ import 'package:flutter_app_new/model/album.dart';
 import 'package:flutter_app_new/model/list_image_model.dart';
 import 'package:flutter_app_new/model/photo.dart';
 import 'package:flutter_app_new/screen/photo_detail.dart';
+import 'package:flutter_app_new/widget/options_button_span.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -21,13 +22,13 @@ class AlbumHomePage extends StatefulWidget {
   State<StatefulWidget> createState() => _AlbumPageState(_bloc);
 }
 
-class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver{
+class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
   AlbumBloc _albumBloc;
   ScrollController _scrollController;
   static const double _endReachedThreshold = 200;
   bool _isLoadingMore = false;
 
-  _AlbumPageState(AlbumBloc _bloc){
+  _AlbumPageState(AlbumBloc _bloc) {
     this._albumBloc = _bloc;
     _scrollController = new ScrollController();
     _scrollController.addListener(_onScroll);
@@ -43,103 +44,111 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver{
           return Container();
         }
         List<Photo> data = listImg;
-        return CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          controller: _scrollController,
-          slivers: [
-            CupertinoSliverRefreshControl(
-              onRefresh: () {
-                context.read<AlbumBloc>().add(AlbumEvent.LOAD);
-                return;
-              },
+        return Stack(
+          children: [
+            CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              controller: _scrollController,
+              slivers: [
+                CupertinoSliverRefreshControl(
+                  onRefresh: () {
+                    context.read<AlbumBloc>().add(AlbumEvent.LOAD);
+                    return;
+                  },
+                ),
+                SliverPadding(
+                  padding: EdgeInsets.all(0),
+                  sliver: SliverGrid.count(
+                      crossAxisCount: 2,
+                      children: List.generate(data.length, (index) {
+                        return Padding(
+                            padding: EdgeInsets.only(
+                                left: index % 2 == 0 ? 10 : 5,
+                                right: index % 2 == 0 ? 5 : 10,
+                                top: 10),
+                            child: _buildItemImage(data[index]));
+                      })),
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 16),
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ],
             ),
-            SliverPadding(
-              padding: EdgeInsets.all(0),
-              sliver: SliverGrid.count(
-                  crossAxisCount: 2,
-                  children: List.generate(data.length, (index) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          left: index % 2 == 0 ? 10 : 5,
-                          right: index % 2 == 0 ? 5 : 10,
-                          top: 10),
-                      child: _buildItemImage(data[index])
-                    );
-                  })),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                padding: EdgeInsets.only(bottom: 16),
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(),
-              ),
-            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: OptionButtonSpan(),
+            )
           ],
         );
       }),
     );
   }
 
-  Widget _buildItemImage(Photo photo){
-    String imgPath = photo.liked?"assets/heart_solid.svg":"assets/heart_empty.svg";
+  Widget _buildItemImage(Photo photo) {
+    String imgPath =
+        photo.liked ? "assets/heart_solid.svg" : "assets/heart_empty.svg";
     return GestureDetector(
-      onTap: (){
-        _onClickImageItem(photo);
-      },
-      child: Stack(
-        children: [
-          Align(
-            child: ClipRRect(
-                borderRadius: new BorderRadius.all(Radius.circular(10)),
-                child: Center(
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/img_loading.gif',
-                    image: photo.src.tiny,
-                    fit: BoxFit.cover,
-                    height: double.infinity,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                  ),
-                )
+        onTap: () {
+          _onClickImageItem(photo);
+        },
+        child: Stack(
+          children: [
+            Align(
+              child: ClipRRect(
+                  borderRadius: new BorderRadius.all(Radius.circular(10)),
+                  child: Center(
+                    child: FadeInImage.assetNetwork(
+                      placeholder: 'assets/img_loading.gif',
+                      image: photo.src.tiny,
+                      fit: BoxFit.cover,
+                      height: double.infinity,
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                    ),
+                  )),
             ),
-          ),
-          Align(
-            child: GestureDetector(
-              onTap: (){
-                photo.liked = !photo.liked;
-                setState(() {
-                  imgPath = photo.liked?"assets/heart_solid.svg":"assets/heart_empty.svg";
-                });
-              },
-              child: Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey[100].withOpacity(0.5)
-                ),
-                margin: EdgeInsets.all(8),
-                child: Padding(
-                  padding: EdgeInsets.all(5),
-                  child: SvgPicture.asset(imgPath),
+            Align(
+              child: GestureDetector(
+                onTap: () {
+                  photo.liked = !photo.liked;
+                  setState(() {
+                    imgPath = photo.liked
+                        ? "assets/heart_solid.svg"
+                        : "assets/heart_empty.svg";
+                  });
+                },
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[100].withOpacity(0.5)),
+                  margin: EdgeInsets.all(8),
+                  child: Padding(
+                    padding: EdgeInsets.all(5),
+                    child: SvgPicture.asset(imgPath),
+                  ),
                 ),
               ),
-            ),
-            alignment: Alignment.bottomRight,
-          )
-        ],
-      )
-    );
+              alignment: Alignment.bottomRight,
+            )
+          ],
+        ));
   }
 
-  void _onClickImageItem(Photo photo){
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => PhotoDetailPage(photo)
-    ));
+  void _onClickImageItem(Photo photo) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => PhotoDetailPage(photo)));
   }
 
   void _onScroll() {
-    if (!_isLoadingMore && _scrollController.position.pixels > _scrollController.position.maxScrollExtent - 100) {
+    if (!_isLoadingMore &&
+        _scrollController.position.pixels >
+            _scrollController.position.maxScrollExtent - 100) {
       _isLoadingMore = true;
       //Load more
       print("PUSH EVENT LOADMOREE");

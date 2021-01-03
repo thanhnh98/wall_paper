@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
+import 'package:flutter_app_new/generated/l10n.dart';
 import 'package:flutter_app_new/list_image/photo/photo_detail_bloc.dart';
 import 'package:flutter_app_new/list_image/wall_paper/wall_paper_bloc.dart';
 import 'package:flutter_app_new/list_image/wall_paper/wall_paper_event.dart';
@@ -45,7 +46,7 @@ class _WallpaperState extends State<WallpaperDialog>{
       children: [
         RichText(
           text: TextSpan(
-            text: "Select one",
+            text: S.current.select_one,
             style: CommonStyle.titleTextStyle
           )
         ),
@@ -71,7 +72,7 @@ class _WallpaperState extends State<WallpaperDialog>{
         Icons.smartphone,
         size: 50,
       ),
-      "Home Screen",
+      S.current.home_screen,
       ScreenType.HOME_SCREEN,
       _wallPaperBloc.homeScreenStreamController
     );
@@ -83,7 +84,7 @@ class _WallpaperState extends State<WallpaperDialog>{
         Icons.phonelink_lock,
         size: 50,
       ),
-      "Lock Screen",
+      S.current.lock_screen,
       ScreenType.LOCK_SCREEN,
       _wallPaperBloc.lockScreenStreamController
     );
@@ -95,7 +96,7 @@ class _WallpaperState extends State<WallpaperDialog>{
         Icons.fit_screen,
         size: 50,
       ),
-      "Home-Lock Screen",
+      S.current.both_screens,
       ScreenType.BOTH_SCREENS,
       _wallPaperBloc.bothScreenStreamController
     );
