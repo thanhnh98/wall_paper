@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
+import 'package:flutter_app_new/generated/l10n.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class VerticalLeftSideBar extends StatefulWidget{
   @override
@@ -29,7 +31,7 @@ class _VerticalLeftSideState extends State<VerticalLeftSideBar>{
               },
               child: RichText(
                 text: TextSpan(
-                    text: "Photos",
+                    text: S.current.photo,
                     style: CommonStyle.textStyleCustom(
                         color: currentTabSelect == photoTabIndex? Colors.white : Colors.grey
                     )
@@ -42,11 +44,12 @@ class _VerticalLeftSideState extends State<VerticalLeftSideBar>{
             quarterTurns: -1,
             child: GestureDetector(
               onTap: (){
-                onTabSelected(videoTabIndex);
+                //onTabSelected(videoTabIndex);
+                Fluttertoast.showToast(msg: S.current.waiting_feature_message);
                 },
               child: RichText(
                 text: TextSpan(
-                  text: "Videos",
+                  text: S.current.video,
                   style: CommonStyle.textStyleCustom(
                       color: currentTabSelect == videoTabIndex? Colors.white : Colors.grey
                   ),

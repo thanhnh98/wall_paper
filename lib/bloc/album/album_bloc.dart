@@ -11,7 +11,10 @@ import 'package:flutter_app_new/repository/image_repository.dart';
 import 'album_event.dart';
 
 class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
-  AlbumBloc() : super(null);
+  String listImageUrl;
+  AlbumBloc({this.listImageUrl}) : super(null){
+    add(AlbumEvent.LOAD);
+  }
 
   var _itemPerPage = new Random().nextInt(10) + 30;
   var _isLoadingMore = false;
@@ -81,10 +84,11 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
     List<String> listCategory = ImageCategory.listDefaultCategory;
     String param = listCategory[Random().nextInt(listCategory.length)];
     int itemPerPage = _itemPerPage;
-    int page = new Random().nextInt(20);
+    int page = new Random().nextInt(20) + 1;
 
     try {
-      AlbumModel album = await ImageRepository().fetchAlbum(page, itemPerPage);
+      // AlbumModel album = await ImageRepository().fetchAlbum(page, itemPerPage);
+      AlbumModel album = await ImageRepository().fetchAlbumWithUrl(listImageUrl+"&page=$page");
       return album;
     }
     catch(err){

@@ -11,10 +11,13 @@ import 'package:flutter_app_new/bloc/home/section/text.dart';
 import 'package:flutter_app_new/common/color_utils.dart';
 import 'package:flutter_app_new/common/constant.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
+import 'package:flutter_app_new/generated/l10n.dart';
 import 'package:flutter_app_new/model/horizontal_landing_item.dart';
 import 'package:flutter_app_new/model/photo.dart';
+import 'package:flutter_app_new/screen/album.dart';
 import 'package:flutter_app_new/widget/vertical_left_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -54,42 +57,46 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
-                          Container(
-                            height: 40,
-                            margin: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.grey.withOpacity(0.7)
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: 20,
-                                right: 20
+                          GestureDetector(
+                            onTap: (){
+                              Fluttertoast.showToast(msg: S.current.waiting_feature_message);
+                            },
+                            child:Container(
+                              height: 40,
+                              margin: EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey.withOpacity(0.7)
                               ),
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment(-1,0),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        text: "Tìm kiếm",
-                                        style: CommonStyle.textStyleCustom(
-                                          size: 18.0,
-                                          weight: FontWeight.normal
-                                        )
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: 20,
+                                    right: 20
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment(-1,0),
+                                      child: RichText(
+                                        text: TextSpan(
+                                            text: S.current.search,
+                                            style: CommonStyle.textStyleCustom(
+                                                size: 18.0,
+                                                weight: FontWeight.normal
+                                            )
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment(1,0),
-                                    child: Icon(
-                                      Icons.search,
-                                      color: Colors.white,
-                                      size: 32,
+                                    Align(
+                                        alignment: Alignment(1,0),
+                                        child: Icon(
+                                          Icons.search,
+                                          color: Colors.white,
+                                          size: 32,
+                                        )
                                     )
-                                  )
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -113,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           margin: EdgeInsets.only(left: 20),
                           child: RichText(
                             text: TextSpan(
-                                text: "1000+ Photos",
+                                text: "1000+ ${S.current.photo}",
                                 style: CommonStyle.textStyleCustom(
                                   size: CommonStyle.super_extra_text_size,
                                   color: CommonColor.white,
@@ -159,53 +166,59 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildItemSingle(HorizontalLandingItemModel item) {
-    return Container(
-        width: 180,
-        height: 300,
-        margin: EdgeInsets.only(right: 10),
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: FadeInImage.assetNetwork(
-                placeholder: '',
-                image: item.assetsImageCover,
-                fit: BoxFit.cover,
-                height: double.infinity,
-                width: double.infinity,
-                alignment: Alignment.center,
-              ),
-            ),
-            Align(
-              alignment: Alignment(-1, 1),
-              child: Container(
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.6),
-                    borderRadius: BorderRadius.only(
-                        topRight: BorderRadius
-                            .circular(15)
-                            .topRight,
-                        bottomLeft: BorderRadius
-                            .circular(15)
-                            .bottomLeft
-                    )
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => AlbumHomePage(item.url)));
+      },
+      child: Container(
+          width: 180,
+          height: 300,
+          margin: EdgeInsets.only(right: 10),
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: FadeInImage.assetNetwork(
+                  placeholder: '',
+                  image: item.assetsImageCover,
+                  fit: BoxFit.cover,
+                  height: double.infinity,
+                  width: double.infinity,
+                  alignment: Alignment.center,
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: RichText(
-                    text: TextSpan(
-                        text: item.title,
-                        style: CommonStyle.textStyleCustom(
-                            color: Colors.white
-                        )
+              ),
+              Align(
+                alignment: Alignment(-1, 1),
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.6),
+                      borderRadius: BorderRadius.only(
+                          topRight: BorderRadius
+                              .circular(15)
+                              .topRight,
+                          bottomLeft: BorderRadius
+                              .circular(15)
+                              .bottomLeft
+                      )
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: RichText(
+                      text: TextSpan(
+                          text: item.title,
+                          style: CommonStyle.textStyleCustom(
+                              color: Colors.white
+                          )
+                      ),
                     ),
                   ),
                 ),
-              ),
-            )
-          ],
-        )
+              )
+            ],
+          )
+      ),
     );
   }
 }

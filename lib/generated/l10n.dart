@@ -114,6 +114,126 @@ class S {
       args: [],
     );
   }
+
+  /// `Curated`
+  String get curated {
+    return Intl.message(
+      'Curated',
+      name: 'curated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Animal`
+  String get animal {
+    return Intl.message(
+      'Animal',
+      name: 'animal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nature`
+  String get nature {
+    return Intl.message(
+      'Nature',
+      name: 'nature',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `School`
+  String get school {
+    return Intl.message(
+      'School',
+      name: 'school',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Text`
+  String get text {
+    return Intl.message(
+      'Text',
+      name: 'text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Travel`
+  String get travel {
+    return Intl.message(
+      'Travel',
+      name: 'travel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Traffic`
+  String get traffic {
+    return Intl.message(
+      'Traffic',
+      name: 'traffic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photos`
+  String get photo {
+    return Intl.message(
+      'Photos',
+      name: 'photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Videos`
+  String get video {
+    return Intl.message(
+      'Videos',
+      name: 'video',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search photo...`
+  String get search {
+    return Intl.message(
+      'Search photo...',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coming soon`
+  String get waiting_feature_message {
+    return Intl.message(
+      'Coming soon',
+      name: 'waiting_feature_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wallpaper HD+ - Quickly and Easy`
+  String get app_slogan {
+    return Intl.message(
+      'Wallpaper HD+ - Quickly and Easy',
+      name: 'app_slogan',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

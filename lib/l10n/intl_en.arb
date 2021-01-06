@@ -6,5 +6,17 @@
   "contact": "Contact ",
   "lock_screen": "Lock Screen",
   "home_screen": "Home Screen",
-  "both_screens": "Both Screens"
+  "both_screens": "Both Screens",
+  "curated": "Curated",
+  "animal": "Animal",
+  "nature": "Nature",
+  "school": "School",
+  "text": "Text",
+  "travel": "Travel",
+  "traffic": "Traffic",
+  "photo": "Photos",
+  "video": "Videos",
+  "search": "Search photo...",
+  "waiting_feature_message": "Coming soon",
+  "app_slogan": "Wallpaper HD+ - Quickly and Easy"
 }

@@ -21,13 +21,25 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "animal" : MessageLookupByLibrary.simpleMessage("Animal"),
+    "app_slogan" : MessageLookupByLibrary.simpleMessage("Wallpaper HD+ - Quickly and Easy"),
     "both_screens" : MessageLookupByLibrary.simpleMessage("Both Screens"),
     "contact" : MessageLookupByLibrary.simpleMessage("Contact "),
+    "curated" : MessageLookupByLibrary.simpleMessage("Curated"),
     "home_screen" : MessageLookupByLibrary.simpleMessage("Home Screen"),
     "info" : MessageLookupByLibrary.simpleMessage("Info"),
     "lock_screen" : MessageLookupByLibrary.simpleMessage("Lock Screen"),
+    "nature" : MessageLookupByLibrary.simpleMessage("Nature"),
     "options" : MessageLookupByLibrary.simpleMessage("Options"),
+    "photo" : MessageLookupByLibrary.simpleMessage("Photos"),
     "photo_by" : MessageLookupByLibrary.simpleMessage("Photo by "),
-    "select_one" : MessageLookupByLibrary.simpleMessage("Select one")
+    "school" : MessageLookupByLibrary.simpleMessage("School"),
+    "search" : MessageLookupByLibrary.simpleMessage("Search photo..."),
+    "select_one" : MessageLookupByLibrary.simpleMessage("Select one"),
+    "text" : MessageLookupByLibrary.simpleMessage("Text"),
+    "traffic" : MessageLookupByLibrary.simpleMessage("Traffic"),
+    "travel" : MessageLookupByLibrary.simpleMessage("Travel"),
+    "video" : MessageLookupByLibrary.simpleMessage("Videos"),
+    "waiting_feature_message" : MessageLookupByLibrary.simpleMessage("Coming soon")
   };
 }

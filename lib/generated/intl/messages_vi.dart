@@ -21,13 +21,25 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "animal" : MessageLookupByLibrary.simpleMessage("Động vật"),
+    "app_slogan" : MessageLookupByLibrary.simpleMessage("Wallpaper HD+ - Thay đổi phong cách"),
     "both_screens" : MessageLookupByLibrary.simpleMessage("Cả hai"),
     "contact" : MessageLookupByLibrary.simpleMessage("Liên hệ "),
+    "curated" : MessageLookupByLibrary.simpleMessage("Nổi bật"),
     "home_screen" : MessageLookupByLibrary.simpleMessage("Màn hình chính"),
     "info" : MessageLookupByLibrary.simpleMessage("Thông tin"),
     "lock_screen" : MessageLookupByLibrary.simpleMessage("Màn hình khoá"),
+    "nature" : MessageLookupByLibrary.simpleMessage("Thiên nhiên"),
     "options" : MessageLookupByLibrary.simpleMessage("Tuỳ chọn"),
+    "photo" : MessageLookupByLibrary.simpleMessage("Hình ảnh"),
     "photo_by" : MessageLookupByLibrary.simpleMessage("Được chụp bởi "),
-    "select_one" : MessageLookupByLibrary.simpleMessage("Dùng làm")
+    "school" : MessageLookupByLibrary.simpleMessage("Trường lớp"),
+    "search" : MessageLookupByLibrary.simpleMessage("Tìm kiếm..."),
+    "select_one" : MessageLookupByLibrary.simpleMessage("Dùng làm"),
+    "text" : MessageLookupByLibrary.simpleMessage("Kiểu chữ"),
+    "traffic" : MessageLookupByLibrary.simpleMessage("Giao thông"),
+    "travel" : MessageLookupByLibrary.simpleMessage("Du lịch"),
+    "video" : MessageLookupByLibrary.simpleMessage("Video"),
+    "waiting_feature_message" : MessageLookupByLibrary.simpleMessage("Tính năng đang phát triển")
   };
 }

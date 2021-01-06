@@ -6,5 +6,17 @@
   "contact": "Liên hệ ",
   "lock_screen": "Màn hình khoá",
   "home_screen": "Màn hình chính",
-  "both_screens": "Cả hai"
+  "both_screens": "Cả hai",
+  "curated": "Nổi bật",
+  "animal": "Động vật",
+  "nature": "Thiên nhiên",
+  "school": "Trường lớp",
+  "text": "Kiểu chữ",
+  "travel": "Du lịch",
+  "traffic": "Giao thông",
+  "photo": "Hình ảnh",
+  "video": "Video",
+  "search": "Tìm kiếm...",
+  "waiting_feature_message": "Tính năng đang phát triển",
+  "app_slogan": "Wallpaper HD+ - Thay đổi phong cách"
 }

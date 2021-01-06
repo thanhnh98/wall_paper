@@ -10,103 +10,80 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AlbumHomePage extends StatefulWidget {
-  AlbumBloc _bloc;
-
-  AlbumHomePage(albumBloc) {
-    this._bloc = albumBloc;
-  }
+  String _listImageUrl;
+  AlbumHomePage(this._listImageUrl);
 
   @override
-  State<StatefulWidget> createState() => _AlbumPageState(_bloc);
+  State<StatefulWidget> createState() => _AlbumPageState(_listImageUrl);
 }
 
 class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
-  AlbumBloc _albumBloc;
   ScrollController _scrollController;
-  static const double _endReachedThreshold = 200;
   bool _isLoadingMore = false;
-
-  _AlbumPageState(AlbumBloc _bloc) {
-    this._albumBloc = _bloc;
+  String listImageUrl;
+  BuildContext blocContext;
+  _AlbumPageState(this.listImageUrl) {
     _scrollController = new ScrollController();
     _scrollController.addListener(_onScroll);
-    _albumBloc.add(AlbumEvent.LOAD);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<AlbumBloc, List<Photo>>(builder: (context, listImg) {
-        _isLoadingMore = false;
-        if (listImg == null) {
-          return Container();
-        }
-        List<Photo> data = listImg;
-        return Column(
-          children: [
-            Expanded(
-                child: Stack(
-                  children: [
-                    CustomScrollView(
-                      physics: BouncingScrollPhysics(),
-                      controller: _scrollController,
-                      slivers: [
-                        CupertinoSliverRefreshControl(
-                          onRefresh: () {
-                            context.read<AlbumBloc>().add(AlbumEvent.LOAD);
-                            return;
-                          },
-                        ),
-                        SliverPadding(
-                          padding: EdgeInsets.all(0),
-                          sliver: SliverGrid.count(
-                              crossAxisCount: 2,
-                              children: List.generate(data.length, (index) {
-                                return Padding(
-                                    padding: EdgeInsets.only(
-                                        left: index % 2 == 0 ? 10 : 5,
-                                        right: index % 2 == 0 ? 5 : 10,
-                                        top: 10),
-                                    child: _buildItemImage(data[index]));
-                              })),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Container(
-                            padding: EdgeInsets.only(bottom: 16),
-                            alignment: Alignment.center,
-                            child: CircularProgressIndicator(),
+    return BlocProvider(
+        create: (context) => AlbumBloc(listImageUrl: listImageUrl),
+        child: SafeArea(
+          child: Scaffold(
+            body: BlocBuilder<AlbumBloc, List<Photo>>(builder: (context, listImg) {
+              blocContext = context;
+              _isLoadingMore = false;
+              if (listImg == null) {
+                return Container();
+              }
+              List<Photo> data = listImg;
+              return Column(
+                children: [
+                  Expanded(
+                      child: Stack(
+                        children: [
+                          CustomScrollView(
+                            physics: BouncingScrollPhysics(),
+                            controller: _scrollController,
+                            slivers: [
+                              CupertinoSliverRefreshControl(
+                                onRefresh: () {
+                                  context.read<AlbumBloc>().add(AlbumEvent.LOAD);
+                                  return;
+                                },
+                              ),
+                              SliverPadding(
+                                padding: EdgeInsets.all(0),
+                                sliver: SliverGrid.count(
+                                    crossAxisCount: 2,
+                                    children: List.generate(data.length, (index) {
+                                      return Padding(
+                                          padding: EdgeInsets.only(
+                                              left: index % 2 == 0 ? 10 : 5,
+                                              right: index % 2 == 0 ? 5 : 10,
+                                              top: 10),
+                                          child: _buildItemImage(data[index]));
+                                    })),
+                              ),
+                              SliverToBoxAdapter(
+                                child: Container(
+                                  padding: EdgeInsets.only(bottom: 16),
+                                  alignment: Alignment.center,
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: OptionButtonSpan(),
-                    )
-                  ],
-                )),
-          ],
-        );
-      }),
-    );
-  }
-
-  Widget _buildBottomBar(){
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.grey[100],
-          borderRadius: BorderRadius.only(
-              topLeft: BorderRadius.circular(4).topLeft,
-              topRight: BorderRadius.circular(4).topRight
-          )
-      ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: buildListHorizontalItem(),
-        ),
-      ),
+                        ],
+                      )),
+                ],
+              );
+            }),
+          ),
+        )
     );
   }
 
@@ -142,7 +119,7 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
                         ? "assets/heart_solid.svg"
                         : "assets/heart_empty.svg";
                   });
-                  _albumBloc.likeImage(photo.id, photo.liked);
+                  context.read<AlbumBloc>().likeImage(photo.id, photo.liked);
                 },
                 child: Container(
                   width: 24,
@@ -174,7 +151,8 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
             _scrollController.position.maxScrollExtent - 100) {
       _isLoadingMore = true;
       //Load more
-      _albumBloc.add(AlbumEvent.LOAD_MORE);
+      print("request loadmore");
+      blocContext?.read<AlbumBloc>()?.add(AlbumEvent.LOAD_MORE);
     }
   }
 
