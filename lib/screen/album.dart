@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app_new/list_image/album/album_bloc.dart';
-import 'package:flutter_app_new/list_image/album/album_event.dart';
-import 'package:flutter_app_new/model/album.dart';
-import 'package:flutter_app_new/model/list_image_model.dart';
+import 'package:flutter_app_new/bloc/album/album_bloc.dart';
+import 'package:flutter_app_new/bloc/album/album_event.dart';
 import 'package:flutter_app_new/model/photo.dart';
 import 'package:flutter_app_new/screen/photo_detail.dart';
 import 'package:flutter_app_new/widget/options_button_span.dart';
@@ -44,47 +42,71 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
           return Container();
         }
         List<Photo> data = listImg;
-        return Stack(
+        return Column(
           children: [
-            CustomScrollView(
-              physics: BouncingScrollPhysics(),
-              controller: _scrollController,
-              slivers: [
-                CupertinoSliverRefreshControl(
-                  onRefresh: () {
-                    context.read<AlbumBloc>().add(AlbumEvent.LOAD);
-                    return;
-                  },
-                ),
-                SliverPadding(
-                  padding: EdgeInsets.all(0),
-                  sliver: SliverGrid.count(
-                      crossAxisCount: 2,
-                      children: List.generate(data.length, (index) {
-                        return Padding(
-                            padding: EdgeInsets.only(
-                                left: index % 2 == 0 ? 10 : 5,
-                                right: index % 2 == 0 ? 5 : 10,
-                                top: 10),
-                            child: _buildItemImage(data[index]));
-                      })),
-                ),
-                SliverToBoxAdapter(
-                  child: Container(
-                    padding: EdgeInsets.only(bottom: 16),
-                    alignment: Alignment.center,
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: OptionButtonSpan(),
-            )
+            Expanded(
+                child: Stack(
+                  children: [
+                    CustomScrollView(
+                      physics: BouncingScrollPhysics(),
+                      controller: _scrollController,
+                      slivers: [
+                        CupertinoSliverRefreshControl(
+                          onRefresh: () {
+                            context.read<AlbumBloc>().add(AlbumEvent.LOAD);
+                            return;
+                          },
+                        ),
+                        SliverPadding(
+                          padding: EdgeInsets.all(0),
+                          sliver: SliverGrid.count(
+                              crossAxisCount: 2,
+                              children: List.generate(data.length, (index) {
+                                return Padding(
+                                    padding: EdgeInsets.only(
+                                        left: index % 2 == 0 ? 10 : 5,
+                                        right: index % 2 == 0 ? 5 : 10,
+                                        top: 10),
+                                    child: _buildItemImage(data[index]));
+                              })),
+                        ),
+                        SliverToBoxAdapter(
+                          child: Container(
+                            padding: EdgeInsets.only(bottom: 16),
+                            alignment: Alignment.center,
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: OptionButtonSpan(),
+                    )
+                  ],
+                )),
           ],
         );
       }),
+    );
+  }
+
+  Widget _buildBottomBar(){
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.grey[100],
+          borderRadius: BorderRadius.only(
+              topLeft: BorderRadius.circular(4).topLeft,
+              topRight: BorderRadius.circular(4).topRight
+          )
+      ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: buildListHorizontalItem(),
+        ),
+      ),
     );
   }
 
@@ -120,6 +142,7 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
                         ? "assets/heart_solid.svg"
                         : "assets/heart_empty.svg";
                   });
+                  _albumBloc.likeImage(photo.id, photo.liked);
                 },
                 child: Container(
                   width: 24,
@@ -151,8 +174,47 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
             _scrollController.position.maxScrollExtent - 100) {
       _isLoadingMore = true;
       //Load more
-      print("PUSH EVENT LOADMOREE");
       _albumBloc.add(AlbumEvent.LOAD_MORE);
     }
+  }
+
+  List<Widget> buildListHorizontalItem() {
+    return [
+      _buildItemBottom("Animal"),
+      _buildItemBottom("Nature"),
+      _buildItemBottom("Flutter"),
+      _buildItemBottom("Animal"),
+      _buildItemBottom("Nature"),
+      _buildItemBottom("Flutter"),
+      _buildItemBottom("Animal"),
+      _buildItemBottom("Nature"),
+      _buildItemBottom("Flutter"),
+    ];
+  }
+
+  Widget _buildItemBottom(String title){
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 10,
+        top: 10,
+        bottom: 10
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.lightBlue[500],
+            borderRadius: BorderRadius.circular(10)
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Center(
+            child: RichText(
+              text: TextSpan(
+                  text: title
+              ),
+            ),
+          ),
+        )
+      ),
+    );
   }
 }

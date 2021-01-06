@@ -9,9 +9,9 @@ class FileUtils {
             val fdelete = File(path)
             if (fdelete.exists()) {
                 if (fdelete.delete()) {
-                    System.out.println("file Deleted :" + path)
+                    //System.out.println("file Deleted :" + path)
                 } else {
-                    System.out.println("file not Deleted :" + path)
+                    //System.out.println("file not Deleted :" + path)
                 }
             }
         }

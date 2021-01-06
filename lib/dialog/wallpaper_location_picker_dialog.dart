@@ -2,11 +2,12 @@ import 'dart:isolate';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_new/bloc/photo/photo_detail_bloc.dart';
+import 'package:flutter_app_new/bloc/wall_paper/wall_paper_bloc.dart';
+import 'package:flutter_app_new/bloc/wall_paper/wall_paper_event.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
 import 'package:flutter_app_new/generated/l10n.dart';
-import 'package:flutter_app_new/list_image/photo/photo_detail_bloc.dart';
-import 'package:flutter_app_new/list_image/wall_paper/wall_paper_bloc.dart';
-import 'package:flutter_app_new/list_image/wall_paper/wall_paper_event.dart';
+
 import 'package:flutter_app_new/model/photo.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -132,7 +133,6 @@ class _WallpaperState extends State<WallpaperDialog>{
   Widget _buildItem(Widget icon, String text, ScreenType type){
     return GestureDetector(
       onTap: (){
-        print("type = $type");
         _wallPaperBloc.requestSetBackground(type);
       },
       child: Column(

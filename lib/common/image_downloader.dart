@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_app_new/list_image/wall_paper/wall_paper_event.dart';
+import 'package:flutter_app_new/bloc/wall_paper/wall_paper_event.dart';
 import 'package:image_downloader/image_downloader.dart';
 
 class ImageDownloadHelper {
@@ -22,12 +22,12 @@ class ImageDownloadHelper {
       }
       return Future.value(path);
     } on PlatformException catch (error) {
-      print(error);
       return Future.value(RESULT_FAILED);
     }
   }
   
   static Future<String> setBackgroundOnly(String path, ScreenType type) async{
+    print("SET_BACKGROUND_WITHOUT_DOWNLOADING");
     String location = _HOME_SCREEN; // or location = WallpaperManager.LOCK_SCREEN;
 
     if (type == ScreenType.HOME_SCREEN) location = _HOME_SCREEN;
@@ -49,6 +49,7 @@ class ImageDownloadHelper {
   }
 
   static Future<String> setDownloadAndBackground(String url, ScreenType type) async {
+    print("DOWNLOAD_AND_SET_BACKGROUND");
     return _downloadAndSetBackground(url, type);
   }
 

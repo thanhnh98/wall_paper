@@ -4,6 +4,9 @@ class CommonStyle{
 
   static final double normal_text_size = 16.0;
   static final double large_text_size = 20.0;
+  static final double larger_text_size = 24.0;
+  static final double extra_text_size = 28.0;
+  static final double super_extra_text_size = 32.0;
 
   static final TextStyle normalTextStyle = TextStyle(
     fontFamily: 'SourceSans Pro',
@@ -38,6 +41,14 @@ class CommonStyle{
     fontWeight: FontWeight.bold,
     height: 1.15,
     color: Color(0xFFFFFFFF),
+  );
+
+  static final TextStyle titleTextStyleBlack = TextStyle(
+    fontFamily: 'SourceSans Pro',
+    fontSize: large_text_size,
+    fontWeight: FontWeight.bold,
+    height: 1.15,
+    color: Color(0xFF333333),
   );
 
 }

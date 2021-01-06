@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app_new/list_image/photo/photo_detail_bloc.dart';
+import 'package:flutter_app_new/bloc/photo/photo_detail_bloc.dart';
 import 'package:flutter_app_new/model/photo.dart';
 
 // ignore: must_be_immutable
@@ -7,7 +7,6 @@ class DownloadProgressProvider extends InheritedWidget{
   // ignore: close_sinks
   static PhotoDetailBloc _photoBloc;
   static Photo _photo;
-  ProcessingEvent event;
   DownloadProgressProvider({
         Key key,
         @required Photo data,
@@ -25,11 +24,4 @@ class DownloadProgressProvider extends InheritedWidget{
 
   static PhotoDetailBloc of(BuildContext context,{Photo photo}) => _photoBloc??=PhotoDetailBloc(_photo);
 
-}
-
-enum ProcessingEvent{
-  IDLE,
-  PROCESSING,
-  COMPLETED,
-  ERROR
 }

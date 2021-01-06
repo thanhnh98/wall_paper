@@ -78,6 +78,7 @@ class _OptionButtonSpanState extends State<OptionButtonSpan>{
                   ),
                   Align(
                     child: FloatingActionButton(
+                      backgroundColor: Colors.lightBlue[500],
                       child: Container(
                         child: Icon(
                           Icons.image
