@@ -44,7 +44,6 @@ class WallPaperBloc extends DownloadProgressProvider{
 
     if(_lastPathDownloaded != null) {
       try {
-        print("existed path -> try set");
         pathDownloaded = await ImageDownloadHelper.setBackgroundOnly(_lastPathDownloaded, type);
       }catch(e){
         pathDownloaded = await ImageDownloadHelper.setDownloadAndBackground(_photo.src.original, type);

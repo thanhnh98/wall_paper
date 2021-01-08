@@ -47,7 +47,6 @@ class _ProcessingWidgetState extends State<ProcessingWidget>{
             return this.completedIcon??SvgPicture.asset("assets/ic_completed.svg");
           }
 
-          print("CURRENT PROCESS $currentProcessing");
           return CircularProgressIndicator(
             value: currentProcessing.toDouble() * 0.01,
             valueColor: new AlwaysStoppedAnimation(Colors.green),

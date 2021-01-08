@@ -151,7 +151,6 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
             _scrollController.position.maxScrollExtent - 100) {
       _isLoadingMore = true;
       //Load more
-      print("request loadmore");
       blocContext?.read<AlbumBloc>()?.add(AlbumEvent.LOAD_MORE);
     }
   }

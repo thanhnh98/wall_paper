@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 class ClientNetwork{
   ClientOptions _client = new ClientOptions(new http.Client());
   Future<http.Response> get(String url) {
-    print("requested -> $url");
+    // print("requested -> $url");
     return _client.get(url);
   }
 

@@ -27,7 +27,6 @@ class ImageDownloadHelper {
   }
   
   static Future<String> setBackgroundOnly(String path, ScreenType type) async{
-    print("SET_BACKGROUND_WITHOUT_DOWNLOADING");
     String location = _HOME_SCREEN; // or location = WallpaperManager.LOCK_SCREEN;
 
     if (type == ScreenType.HOME_SCREEN) location = _HOME_SCREEN;
@@ -49,7 +48,6 @@ class ImageDownloadHelper {
   }
 
   static Future<String> setDownloadAndBackground(String url, ScreenType type) async {
-    print("DOWNLOAD_AND_SET_BACKGROUND");
     return _downloadAndSetBackground(url, type);
   }
 
