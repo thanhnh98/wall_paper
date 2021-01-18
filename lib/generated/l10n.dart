@@ -185,6 +185,26 @@ class S {
     );
   }
 
+  /// `Country`
+  String get random {
+    return Intl.message(
+      'Country',
+      name: 'random',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Female`
+  String get beauty {
+    return Intl.message(
+      'Female',
+      name: 'beauty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Photos`
   String get photo {
     return Intl.message(

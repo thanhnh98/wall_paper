@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app_new/bloc/album/album_bloc.dart';
 import 'package:flutter_app_new/bloc/album/album_event.dart';
+import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_bloc.dart';
+import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_event.dart';
+import 'package:flutter_app_new/common/navigator_custom.dart';
 import 'package:flutter_app_new/model/photo.dart';
 import 'package:flutter_app_new/screen/photo_detail.dart';
 import 'package:flutter_app_new/widget/options_button_span.dart';
@@ -119,7 +122,8 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
                         ? "assets/heart_solid.svg"
                         : "assets/heart_empty.svg";
                   });
-                  context.read<AlbumBloc>().likeImage(photo.id, photo.liked);
+                  blocContext.read<AlbumBloc>().likeImage(photo, photo.liked);
+                  context.read<PhotoFavouriteBloc>()?.add(PhotoFavouriteEvent.LOAD);
                 },
                 child: Container(
                   width: 24,
@@ -141,8 +145,7 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
   }
 
   void _onClickImageItem(Photo photo) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => PhotoDetailPage(photo)));
+    NavigatorGlobal.pushPhotoDetailPage(context, photo);
   }
 
   void _onScroll() {

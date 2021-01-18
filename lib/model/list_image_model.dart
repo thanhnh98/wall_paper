@@ -1,6 +1,14 @@
 import 'package:flutter_app_new/model/photo.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'list_image_model.g.dart';
 
+@JsonSerializable()
 class ListImageModel{
-  String nextPage;
-  List<Photo> photos;
+
+  ListImageModel({this.nextPage, this.photos});
+  String nextPage = "";
+  List<Photo> photos = List();
+
+  factory ListImageModel.fromJson(Map<String, dynamic> json) => _$ListImageModelFromJson(json);
+  Map<String, dynamic> toJson() => _$ListImageModelToJson(this);
 }

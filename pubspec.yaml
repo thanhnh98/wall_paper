@@ -69,6 +69,7 @@ flutter:
     - ic_completed.svg
     - cover_image.jpg
     - cover_nature.jpg
+    - empty_image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

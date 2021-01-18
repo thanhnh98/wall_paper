@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "animal" : MessageLookupByLibrary.simpleMessage("Động vật"),
     "app_slogan" : MessageLookupByLibrary.simpleMessage("Wallpaper HD+ - Thay đổi phong cách"),
+    "beauty" : MessageLookupByLibrary.simpleMessage("Phái đẹp"),
     "both_screens" : MessageLookupByLibrary.simpleMessage("Cả hai"),
     "contact" : MessageLookupByLibrary.simpleMessage("Liên hệ "),
     "curated" : MessageLookupByLibrary.simpleMessage("Nổi bật"),
@@ -33,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "options" : MessageLookupByLibrary.simpleMessage("Tuỳ chọn"),
     "photo" : MessageLookupByLibrary.simpleMessage("Hình ảnh"),
     "photo_by" : MessageLookupByLibrary.simpleMessage("Được chụp bởi "),
+    "random" : MessageLookupByLibrary.simpleMessage("Thế giới"),
     "school" : MessageLookupByLibrary.simpleMessage("Trường lớp"),
     "search" : MessageLookupByLibrary.simpleMessage("Tìm kiếm..."),
     "select_one" : MessageLookupByLibrary.simpleMessage("Dùng làm"),

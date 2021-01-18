@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "animal" : MessageLookupByLibrary.simpleMessage("Animal"),
     "app_slogan" : MessageLookupByLibrary.simpleMessage("Wallpaper HD+ - Quickly and Easy"),
+    "beauty" : MessageLookupByLibrary.simpleMessage("Female"),
     "both_screens" : MessageLookupByLibrary.simpleMessage("Both Screens"),
     "contact" : MessageLookupByLibrary.simpleMessage("Contact "),
     "curated" : MessageLookupByLibrary.simpleMessage("Curated"),
@@ -33,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "options" : MessageLookupByLibrary.simpleMessage("Options"),
     "photo" : MessageLookupByLibrary.simpleMessage("Photos"),
     "photo_by" : MessageLookupByLibrary.simpleMessage("Photo by "),
+    "random" : MessageLookupByLibrary.simpleMessage("Country"),
     "school" : MessageLookupByLibrary.simpleMessage("School"),
     "search" : MessageLookupByLibrary.simpleMessage("Search photo..."),
     "select_one" : MessageLookupByLibrary.simpleMessage("Select one"),

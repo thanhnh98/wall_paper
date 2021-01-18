@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_bloc.dart';
 import 'package:flutter_app_new/bloc/home/section/animal.dart';
 import 'package:flutter_app_new/bloc/home/section/fashion.dart';
 import 'package:flutter_app_new/bloc/home/section/nature.dart';
@@ -46,6 +47,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => FashionBloc(),
+          ),
+          BlocProvider(
+            create: (context) => PhotoFavouriteBloc(),
           )
         ],
         child: SafeArea(
@@ -61,6 +65,7 @@ class App extends StatelessWidget {
 
       ],
       supportedLocales: S.delegate.supportedLocales,
+      navigatorObservers: [RouteObserver<PageRoute>()],
     );
   }
 }

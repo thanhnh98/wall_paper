@@ -1,8 +1,7 @@
-import 'dart:collection';
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_new/main.dart';
+import 'package:flutter_app_new/model/list_image_model.dart';
+import 'package:flutter_app_new/model/photo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppPreferences{
@@ -12,21 +11,49 @@ class AppPreferences{
     static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 
-    static Future<void> putLikeImageById(int imageId, bool isLiked) async {
-
+    static Future<void> putLikeImageById(Photo photo, bool isLiked) async {
         SharedPreferences pref = await _prefs;
-        String hashString = pref.getString(_IMAGE_HASH);
-        if (hashString == null){
-            Map<int, bool> map = Map();
-            map[imageId] = isLiked;
-            String strMap = json.encode(map);
-            print(strMap);
-            pref.setString(_IMAGE_HASH, strMap);
+        ListImageModel listImageLiked = await getLikedImages();
+
+        if(listImageLiked.photos == null){
+            listImageLiked.photos = List();
         }
-        else{
-            String strMap = pref.getString(_IMAGE_HASH);
-            print(strMap);
+
+        if(listImageLiked.photos.contains(photo)){
+            for (int i = 0; i < listImageLiked.photos.length; ++i) {
+                if (listImageLiked.photos[i].id == photo.id) {
+                    if (isLiked) {
+                        listImageLiked.photos[i] = photo;
+                        break;
+                    }
+                    else {
+                        listImageLiked.photos.removeAt(i);
+                        break;
+                    }
+                }
+            }
+        }else{
+            if(isLiked)
+                listImageLiked.photos.add(photo);
         }
+
+        listImageLiked.nextPage = "";
+        pref.setString(_IMAGE_HASH, json.encode(listImageLiked));
+        return;
+    }
+
+    static Future<ListImageModel> getLikedImages() async{
+        SharedPreferences pref = await _prefs;
+
+        String jsonListData = pref.getString(_IMAGE_HASH);
+
+        if(jsonListData == null)
+            return new ListImageModel();
+
+        ListImageModel listImageLocal = ListImageModel.fromJson(json.decode(jsonListData));
+        print("data neew ${json.encode(listImageLocal)}");
+
+        return listImageLocal;
     }
 
 }
