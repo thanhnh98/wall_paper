@@ -5,6 +5,7 @@ import 'package:flutter_app_new/bloc/album/album_bloc.dart';
 import 'package:flutter_app_new/bloc/album/album_event.dart';
 import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_bloc.dart';
 import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_event.dart';
+import 'package:flutter_app_new/bloc/observe/favourite_photo_observe.dart';
 import 'package:flutter_app_new/common/navigator_custom.dart';
 import 'package:flutter_app_new/model/photo.dart';
 import 'package:flutter_app_new/screen/photo_detail.dart';
@@ -122,8 +123,8 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
                         ? "assets/heart_solid.svg"
                         : "assets/heart_empty.svg";
                   });
-                  blocContext.read<AlbumBloc>().likeImage(photo, photo.liked);
-                  context.read<PhotoFavouriteBloc>()?.add(PhotoFavouriteEvent.LOAD);
+                  FavouritePhotoObserve.of().likeImage(photo, photo.liked);
+                  //FavouritePhotoObserve.of().add(PhotoFavouriteEvent.LOAD);
                 },
                 child: Container(
                   width: 24,

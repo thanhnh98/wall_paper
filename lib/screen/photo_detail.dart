@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_new/bloc/observe/favourite_photo_observe.dart';
 import 'package:flutter_app_new/bloc/photo/photo_detail_bloc.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
 import 'package:flutter_app_new/dialog/wallpaper_location_picker_dialog.dart';
@@ -7,8 +8,7 @@ import 'package:flutter_app_new/generated/l10n.dart';
 import 'package:flutter_app_new/model/photo.dart';
 import 'package:flutter_app_new/widget/download_progress_provider.dart';
 import 'package:flutter_app_new/widget/processing_widget.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'full_image_screen.dart';
 
@@ -132,7 +132,9 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
                         ),
                         _buildIconZoom(),
                         SizedBox(width: 15,),
-                        _buildIconSetBackground()
+                        _buildIconSetBackground(),
+                        SizedBox(width: 15,),
+                        _buildIconFavourite()
                       ],
                     ),
                   ],
@@ -184,6 +186,23 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
           Icons.photo,
           size: 24,
         )
+      ),
+    );
+  }
+
+  Widget _buildIconFavourite(){
+    String imgPath = _photo.liked
+        ? "assets/heart_solid.svg"
+        : "assets/heart_empty.svg";
+    return GestureDetector(
+      onTap: (){
+        setState(() {
+          _photo.liked = !_photo.liked;
+          FavouritePhotoObserve.of().likeImage(_photo, _photo.liked);
+        });
+      },
+      child: _buildIcon(
+        SvgPicture.asset(imgPath)
       ),
     );
   }

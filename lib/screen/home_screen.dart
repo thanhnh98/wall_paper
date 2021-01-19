@@ -24,7 +24,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
-
   @override
   void initState() {
     super.initState();
@@ -34,9 +33,19 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch(state){
+      // case AppLifecycleState.resumed:
+      //   print("resumed");
+      //   context?.read<PhotoFavouriteBloc>()?.add(PhotoFavouriteEvent.LOAD);
+      //   break;
+
+      case AppLifecycleState.inactive:
+        print('AppLifecycleState.inactive');
+        break;
+      case AppLifecycleState.paused:
+        print('AppLifecycleState.paused');
+        break;
       case AppLifecycleState.resumed:
-        print("resumed");
-        context?.read<PhotoFavouriteBloc>()?.add(PhotoFavouriteEvent.LOAD);
+        print('AppLifecycleState.resumed');
         break;
     }
   }
@@ -122,8 +131,15 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   child: Padding(
                     padding: EdgeInsets.only(left: SizeConfig.horizontalSize(5), top: SizeConfig.horizontalSize(5), right: SizeConfig.horizontalSize(5)),
                     child: BlocBuilder<PhotoFavouriteBloc, List<Photo>>(builder: (context, listImg){
-                      if(listImg == null)
-                        return _buildListFavouriteEmpty();
+                      if(listImg == null || listImg?.length == 0)
+                        return GridView.builder(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
+                            controller: scrollController,
+                            itemCount: 1,
+                            itemBuilder: (context, index){
+                              return _buildListFavouriteEmpty();
+                            }
+                        );
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

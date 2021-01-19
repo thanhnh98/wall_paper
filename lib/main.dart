@@ -5,6 +5,7 @@ import 'package:flutter_app_new/bloc/home/section/animal.dart';
 import 'package:flutter_app_new/bloc/home/section/fashion.dart';
 import 'package:flutter_app_new/bloc/home/section/nature.dart';
 import 'package:flutter_app_new/bloc/home/section/text.dart';
+import 'package:flutter_app_new/bloc/observe/favourite_photo_observe.dart';
 import 'package:flutter_app_new/screen/album.dart';
 import 'package:flutter_app_new/screen/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,11 +23,10 @@ void main() {
   );
 }
 
-/// A [StatelessWidget] which uses:
-/// * [bloc](https://pub.dev/packages/bloc)
-/// * [flutter_bloc](https://pub.dev/packages/flutter_bloc)
-/// to manage the state of a counter.
-class App extends StatelessWidget {
+
+class App extends StatelessWidget with RouteAware {
+  final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
   @override
   Widget build(BuildContext context) {
     // AlbumBloc bloc = ;
@@ -49,7 +49,7 @@ class App extends StatelessWidget {
             create: (context) => FashionBloc(),
           ),
           BlocProvider(
-            create: (context) => PhotoFavouriteBloc(),
+            create: (context) => FavouritePhotoObserve.of(),
           )
         ],
         child: SafeArea(
@@ -65,7 +65,9 @@ class App extends StatelessWidget {
 
       ],
       supportedLocales: S.delegate.supportedLocales,
-      navigatorObservers: [RouteObserver<PageRoute>()],
+      navigatorObservers: [
+        routeObserver
+      ],
     );
   }
 }

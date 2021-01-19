@@ -12,34 +12,46 @@ class AppPreferences{
 
 
     static Future<void> putLikeImageById(Photo photo, bool isLiked) async {
+        print("id ${photo.id} is $isLiked");
         SharedPreferences pref = await _prefs;
         ListImageModel listImageLiked = await getLikedImages();
+        photo.liked = isLiked;
 
         if(listImageLiked.photos == null){
             listImageLiked.photos = List();
         }
 
-        if(listImageLiked.photos.contains(photo)){
-            for (int i = 0; i < listImageLiked.photos.length; ++i) {
-                if (listImageLiked.photos[i].id == photo.id) {
-                    if (isLiked) {
-                        listImageLiked.photos[i] = photo;
-                        break;
-                    }
-                    else {
-                        listImageLiked.photos.removeAt(i);
-                        break;
-                    }
+        bool isContainObject = false;
+
+        for (int i = 0; i < listImageLiked.photos.length; ++i) {
+            if (listImageLiked.photos[i].id == photo.id) {
+                isContainObject = true;
+                if (isLiked) {
+                    listImageLiked.photos[i] = photo;
+                    break;
+                }
+                else {
+                    listImageLiked.photos.remove(listImageLiked.photos[i]);
+                    break;
                 }
             }
-        }else{
-            if(isLiked)
-                listImageLiked.photos.add(photo);
+        }
+
+        if(!isContainObject && isLiked){
+            listImageLiked.photos.add(photo);
         }
 
         listImageLiked.nextPage = "";
         pref.setString(_IMAGE_HASH, json.encode(listImageLiked));
         return;
+    }
+
+    static _isContainObject(List<Photo> list, Photo o) {
+        for (int i = 0; i < list.length; ++i) {
+            if (o.id == list[i].id)
+                return true;
+        }
+        return false;
     }
 
     static Future<ListImageModel> getLikedImages() async{
@@ -51,7 +63,6 @@ class AppPreferences{
             return new ListImageModel();
 
         ListImageModel listImageLocal = ListImageModel.fromJson(json.decode(jsonListData));
-        print("data neew ${json.encode(listImageLocal)}");
 
         return listImageLocal;
     }

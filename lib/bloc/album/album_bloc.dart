@@ -94,9 +94,4 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
     catch(err){
     }
   }
-
-  void likeImage(photo, isLiked) async {
-    await AppPreferences.putLikeImageById(photo, isLiked);
-  }
-
 }

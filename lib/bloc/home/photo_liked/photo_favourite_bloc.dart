@@ -16,7 +16,7 @@ class PhotoFavouriteBloc extends Bloc<PhotoFavouriteEvent, List<Photo>>{
       case PhotoFavouriteEvent.LOAD:
         List<Photo> listPhoto = List();
         await AppPreferences.getLikedImages().then((value) => {
-          listPhoto = value?.photos
+          listPhoto = value?.photos?.where((element) => element.liked).toList()
         });
         yield listPhoto;
         break;
@@ -25,5 +25,10 @@ class PhotoFavouriteBloc extends Bloc<PhotoFavouriteEvent, List<Photo>>{
       case PhotoFavouriteEvent.REMOVED:
         break;
     }
+  }
+
+  void likeImage(photo, isLiked) async {
+    await AppPreferences.putLikeImageById(photo, isLiked);
+    add(PhotoFavouriteEvent.LOAD);
   }
 }
