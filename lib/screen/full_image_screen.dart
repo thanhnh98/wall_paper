@@ -32,7 +32,10 @@ class _ImageFullPageState extends State<ImageFullPage> {
         Container(
           width: double.infinity,
           height: double.infinity,
-          child: _buildImageView(),
+
+          child: InteractiveViewer(
+            child: _buildImageView(),
+          )
         ),
         Align(
           child: GestureDetector(
@@ -81,6 +84,8 @@ class _ImageFullPageState extends State<ImageFullPage> {
         placeholder: "assets/img_loading_2.gif",
         image: _photo.src.original,
         fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
       ),
     );
   }

@@ -245,11 +245,41 @@ class S {
     );
   }
 
-  /// `Wallpaper HD+ - Quickly and Easy`
+  /// `Wallpaper HD - Quickly and Easy`
   String get app_slogan {
     return Intl.message(
-      'Wallpaper HD+ - Quickly and Easy',
+      'Wallpaper HD - Quickly and Easy',
       name: 'app_slogan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Searching is easy`
+  String get slogan_search {
+    return Intl.message(
+      'Searching is easy',
+      name: 'slogan_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite photos`
+  String get favourite_list {
+    return Intl.message(
+      'Favorite photos',
+      name: 'favourite_list',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let's discover and save the best moments. <3`
+  String get favourite_photo_des {
+    return Intl.message(
+      'Let\'s discover and save the best moments. <3',
+      name: 'favourite_photo_des',
       desc: '',
       args: [],
     );

@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_bloc.dart';
 import 'package:flutter_app_new/bloc/home/section/animal.dart';
 import 'package:flutter_app_new/bloc/home/section/fashion.dart';
 import 'package:flutter_app_new/bloc/home/section/nature.dart';
 import 'package:flutter_app_new/bloc/home/section/text.dart';
 import 'package:flutter_app_new/bloc/observe/favourite_photo_observe.dart';
-import 'package:flutter_app_new/screen/album.dart';
+import 'package:flutter_app_new/screen/album/album.dart';
 import 'package:flutter_app_new/screen/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -29,6 +30,10 @@ class App extends StatelessWidget with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     // AlbumBloc bloc = ;
     return MaterialApp(
       home: MultiBlocProvider(

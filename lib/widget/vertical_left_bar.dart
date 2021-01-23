@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_new/common/navigator_custom.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
 import 'package:flutter_app_new/generated/l10n.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -45,7 +46,7 @@ class _VerticalLeftSideState extends State<VerticalLeftSideBar>{
             child: GestureDetector(
               onTap: (){
                 //onTabSelected(videoTabIndex);
-                Fluttertoast.showToast(msg: S.current.waiting_feature_message);
+                NavigatorGlobal.pushVideoPage(context);
                 },
               child: RichText(
                 text: TextSpan(

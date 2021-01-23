@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_app_new/common/network.dart';
+import 'package:flutter_app_new/common/network/network.dart';
 import 'package:flutter_app_new/model/album.dart';
 
 class ListImagesLandingRepository extends ClientNetwork{

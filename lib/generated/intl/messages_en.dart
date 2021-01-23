@@ -22,11 +22,13 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "animal" : MessageLookupByLibrary.simpleMessage("Animal"),
-    "app_slogan" : MessageLookupByLibrary.simpleMessage("Wallpaper HD+ - Quickly and Easy"),
+    "app_slogan" : MessageLookupByLibrary.simpleMessage("Wallpaper HD - Quickly and Easy"),
     "beauty" : MessageLookupByLibrary.simpleMessage("Female"),
     "both_screens" : MessageLookupByLibrary.simpleMessage("Both Screens"),
     "contact" : MessageLookupByLibrary.simpleMessage("Contact "),
     "curated" : MessageLookupByLibrary.simpleMessage("Curated"),
+    "favourite_list" : MessageLookupByLibrary.simpleMessage("Favorite photos"),
+    "favourite_photo_des" : MessageLookupByLibrary.simpleMessage("Let\'s discover and save the best moments. <3"),
     "home_screen" : MessageLookupByLibrary.simpleMessage("Home Screen"),
     "info" : MessageLookupByLibrary.simpleMessage("Info"),
     "lock_screen" : MessageLookupByLibrary.simpleMessage("Lock Screen"),
@@ -38,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "school" : MessageLookupByLibrary.simpleMessage("School"),
     "search" : MessageLookupByLibrary.simpleMessage("Search photo..."),
     "select_one" : MessageLookupByLibrary.simpleMessage("Select one"),
+    "slogan_search" : MessageLookupByLibrary.simpleMessage("Searching is easy"),
     "text" : MessageLookupByLibrary.simpleMessage("Text"),
     "traffic" : MessageLookupByLibrary.simpleMessage("Traffic"),
     "travel" : MessageLookupByLibrary.simpleMessage("Travel"),

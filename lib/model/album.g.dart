@@ -14,6 +14,11 @@ AlbumModel _$AlbumModelFromJson(Map<String, dynamic> json) {
         ?.map(
             (e) => e == null ? null : Photo.fromJson(e as Map<String, dynamic>))
         ?.toList()
+    ..videos = (json['videos'] as List)
+        ?.map((e) =>
+            e == null ? null : VideoModel.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..url = json['url'] as String
     ..total_results = json['total_results'] as int
     ..next_page = json['next_page'] as String;
 }
@@ -23,6 +28,8 @@ Map<String, dynamic> _$AlbumModelToJson(AlbumModel instance) =>
       'page': instance.page,
       'per_page': instance.per_page,
       'photos': instance.photos,
+      'videos': instance.videos,
+      'url': instance.url,
       'total_results': instance.total_results,
       'next_page': instance.next_page,
     };

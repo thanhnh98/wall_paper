@@ -12,11 +12,9 @@ import 'package:flutter_app_new/common/style_utils.dart';
 import 'package:flutter_app_new/generated/l10n.dart';
 import 'package:flutter_app_new/model/horizontal_landing_item.dart';
 import 'package:flutter_app_new/model/photo.dart';
-import 'package:flutter_app_new/screen/album.dart';
 import 'package:flutter_app_new/widget/vertical_left_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -147,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             padding: EdgeInsets.all(10),
                             child: RichText(
                               text: TextSpan(
-                                  text: "Danh sách yêu thích",
+                                  text: S.current.favourite_list,
                                   style: CommonStyle.textStyleCustom(
                                       size: 24.0,
                                       weight: FontWeight.bold,
@@ -177,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       margin: EdgeInsets.only(left: SizeConfig.horizontalSize(5)),
       child: RichText(
         text: TextSpan(
-            text: "Wallpaper - Quickly, Easy and Simply",
+            text: S.current.app_slogan,
             style: CommonStyle.textStyleCustom(
                 size: CommonStyle.normal_text_size,
                 color: CommonColor.white,
@@ -190,8 +188,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   Widget _buildSearchComponent(){
     return GestureDetector(
       onTap: () {
-        Fluttertoast.showToast(
-            msg: S.current.waiting_feature_message);
+        NavigatorGlobal.pushSearchPage(context);
       },
       child: Container(
         height: 40,
@@ -248,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           child: Center(
             child: RichText(
               text: TextSpan(
-                text: "Danh sách yêu thích",
+                text: S.current.favourite_list,
                 style: CommonStyle.textStyleCustom(
                   size: 20.0,
                   weight: FontWeight.bold,
@@ -269,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: "Cùng khám phá và lưu lại những khoảnh khắc đẹp nhất nhé. <3",
+              text: S.current.favourite_photo_des,
               style: CommonStyle.textStyleCustom(
                 size: 14.0,
                 weight: FontWeight.normal,
@@ -341,7 +338,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   Widget _buildItemSingle(HorizontalLandingItemModel item) {
     return GestureDetector(
       onTap: () {
-        NavigatorGlobal.pushAlbumHomePage(context, item);
+        NavigatorGlobal.pushAlbumHomePage(context, item.url);
       },
       child: Container(
           width: SizeConfig.horizontalSize(50),
