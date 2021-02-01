@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_new/common/color_utils.dart';
 import 'package:flutter_app_new/common/sized_config.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
 import 'package:flutter_app_new/model/videos/video.dart';
@@ -45,7 +46,7 @@ class _ViewDetailPageState extends State<VideoDetailPage>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              color: Colors.grey,
+              color: Colors.black,
               width: SizeConfig.horizontalSize(100),
               height: SizeConfig.verticalSize(100),
               child: InteractiveViewer(

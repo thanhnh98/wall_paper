@@ -6,7 +6,10 @@ import 'package:flutter_app_new/bloc/album/album_event.dart';
 import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_bloc.dart';
 import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_event.dart';
 import 'package:flutter_app_new/bloc/observe/favourite_photo_observe.dart';
+import 'package:flutter_app_new/common/color_utils.dart';
 import 'package:flutter_app_new/common/navigator_custom.dart';
+import 'package:flutter_app_new/common/sized_config.dart';
+import 'package:flutter_app_new/common/style_utils.dart';
 import 'package:flutter_app_new/model/photo.dart';
 import 'package:flutter_app_new/screen/photo_detail.dart';
 import 'package:flutter_app_new/widget/options_button_span.dart';
@@ -45,6 +48,76 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
                 return Container();
               }
               List<Photo> data = listImg;
+              if(data?.length == 0)
+                return Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: CommonColor.primaryColor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 10,),
+                      Image.asset(
+                        "assets/oops.png",
+                        width: 100,
+                        height: 100,
+                      ),
+                      SizedBox(height: SizeConfig.verticalSize(5),),
+                      RichText(
+                        text: TextSpan(
+                            text: "Oops",
+                            style: CommonStyle.textStyleCustom(
+                              size: 24.0,
+                            )
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: SizeConfig.verticalSize(2),),
+                      RichText(
+                        text: TextSpan(
+                          text: "Không tìm thấy kết quả với từ khoá này, vui lòng thử lại với từ khoá khác bạn nhé T_T",
+                          style: CommonStyle.textStyleCustom(
+                            size: 16.0,
+                            weight: FontWeight.normal
+                          )
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: SizeConfig.verticalSize(3),),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child:  Container(
+                            padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200].withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(10.0)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Flexible(child: RichText(
+                                  text: TextSpan(
+                                      text: "Thử lại",
+                                      style: CommonStyle.titleTextStyle
+                                  ),
+                                )),
+                                SizedBox(width: 5,),
+                                Flexible(child: Icon(
+                                  Icons.search,
+                                  color: Colors.white,
+                                  size: 30.0,
+                                ),)
+                              ],
+                            )
+                        ),
+                      )
+                    ],
+                  ),
+                );
               return Column(
                 children: [
                   Expanded(

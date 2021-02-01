@@ -20,6 +20,7 @@ class SearchScreen extends StatefulWidget{
 class _SearchScreenState extends State<SearchScreen> with TickerProviderStateMixin{
   SearchBloc _searchBloc;
   AnimationController _controller;
+  TextEditingController _textController;
   @override
   void initState() {
     super.initState();
@@ -29,6 +30,7 @@ class _SearchScreenState extends State<SearchScreen> with TickerProviderStateMix
       _controller?.reset();
     });
     _controller = AnimationController(vsync: this);
+    _textController = TextEditingController();
   }
   @override
   Widget build(BuildContext context) {
@@ -98,6 +100,7 @@ class _SearchScreenState extends State<SearchScreen> with TickerProviderStateMix
                       //           size: 24.0, weight: FontWeight.normal)),
                       // ),
                       child: TextField(
+                        controller: _textController,
                         autofocus: true,
                         style: CommonStyle.textStyleCustom(size: 24.0, weight: FontWeight.normal),
                         decoration: InputDecoration.collapsed(
@@ -113,10 +116,17 @@ class _SearchScreenState extends State<SearchScreen> with TickerProviderStateMix
                     ),
                     Align(
                         alignment: Alignment(1, 0),
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.white,
-                          size: 40,
+                        child: GestureDetector(
+                          onTap: (){
+                            _searchBloc.handleSearch(_textController?.text);
+                            _controller.repeat();
+                            FocusScope.of(context).unfocus();
+                          },
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                            size: 40,
+                          ),
                         ))
                   ],
                 ),
