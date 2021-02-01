@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "both_screens" : MessageLookupByLibrary.simpleMessage("Cả hai"),
     "contact" : MessageLookupByLibrary.simpleMessage("Liên hệ "),
     "curated" : MessageLookupByLibrary.simpleMessage("Nổi bật"),
+    "empty_title" : MessageLookupByLibrary.simpleMessage("Không tìm thấy kết quả với từ khoá này, vui lòng thử lại với từ khoá khác bạn nhé T_T"),
     "favourite_list" : MessageLookupByLibrary.simpleMessage("Danh sách yêu thích"),
     "favourite_photo_des" : MessageLookupByLibrary.simpleMessage("Cùng khám phá và lưu lại những khoảnh khắc đẹp nhất nhé. <3"),
     "home_screen" : MessageLookupByLibrary.simpleMessage("Màn hình chính"),
@@ -44,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "text" : MessageLookupByLibrary.simpleMessage("Kiểu chữ"),
     "traffic" : MessageLookupByLibrary.simpleMessage("Giao thông"),
     "travel" : MessageLookupByLibrary.simpleMessage("Du lịch"),
+    "try_again" : MessageLookupByLibrary.simpleMessage("Thử lại"),
     "video" : MessageLookupByLibrary.simpleMessage("Video"),
     "waiting_feature_message" : MessageLookupByLibrary.simpleMessage("Tính năng đang phát triển")
   };

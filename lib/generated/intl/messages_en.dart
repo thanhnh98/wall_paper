@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "both_screens" : MessageLookupByLibrary.simpleMessage("Both Screens"),
     "contact" : MessageLookupByLibrary.simpleMessage("Contact "),
     "curated" : MessageLookupByLibrary.simpleMessage("Curated"),
+    "empty_title" : MessageLookupByLibrary.simpleMessage("Sorry, nothing matches with keyword, please use other one T_T"),
     "favourite_list" : MessageLookupByLibrary.simpleMessage("Favorite photos"),
     "favourite_photo_des" : MessageLookupByLibrary.simpleMessage("Let\'s discover and save the best moments. <3"),
     "home_screen" : MessageLookupByLibrary.simpleMessage("Home Screen"),
@@ -44,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "text" : MessageLookupByLibrary.simpleMessage("Text"),
     "traffic" : MessageLookupByLibrary.simpleMessage("Traffic"),
     "travel" : MessageLookupByLibrary.simpleMessage("Travel"),
+    "try_again" : MessageLookupByLibrary.simpleMessage("Try again"),
     "video" : MessageLookupByLibrary.simpleMessage("Videos"),
     "waiting_feature_message" : MessageLookupByLibrary.simpleMessage("Coming soon")
   };

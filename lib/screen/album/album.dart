@@ -10,6 +10,7 @@ import 'package:flutter_app_new/common/color_utils.dart';
 import 'package:flutter_app_new/common/navigator_custom.dart';
 import 'package:flutter_app_new/common/sized_config.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
+import 'package:flutter_app_new/generated/l10n.dart';
 import 'package:flutter_app_new/model/photo.dart';
 import 'package:flutter_app_new/screen/photo_detail.dart';
 import 'package:flutter_app_new/widget/options_button_span.dart';
@@ -76,7 +77,7 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
                       SizedBox(height: SizeConfig.verticalSize(2),),
                       RichText(
                         text: TextSpan(
-                          text: "Không tìm thấy kết quả với từ khoá này, vui lòng thử lại với từ khoá khác bạn nhé T_T",
+                          text: S.current.empty_title,
                           style: CommonStyle.textStyleCustom(
                             size: 16.0,
                             weight: FontWeight.normal
@@ -101,7 +102,7 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
                               children: [
                                 Flexible(child: RichText(
                                   text: TextSpan(
-                                      text: "Thử lại",
+                                      text: S.current.try_again,
                                       style: CommonStyle.titleTextStyle
                                   ),
                                 )),

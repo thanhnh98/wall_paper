@@ -284,6 +284,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Sorry, nothing matches with keyword, please use other one T_T`
+  String get empty_title {
+    return Intl.message(
+      'Sorry, nothing matches with keyword, please use other one T_T',
+      name: 'empty_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try again`
+  String get try_again {
+    return Intl.message(
+      'Try again',
+      name: 'try_again',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
