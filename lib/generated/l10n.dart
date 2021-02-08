@@ -304,6 +304,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Give a second...`
+  String get give_a_cond {
+    return Intl.message(
+      'Give a second...',
+      name: 'give_a_cond',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

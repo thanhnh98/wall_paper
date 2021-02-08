@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "empty_title" : MessageLookupByLibrary.simpleMessage("Không tìm thấy kết quả với từ khoá này, vui lòng thử lại với từ khoá khác bạn nhé T_T"),
     "favourite_list" : MessageLookupByLibrary.simpleMessage("Danh sách yêu thích"),
     "favourite_photo_des" : MessageLookupByLibrary.simpleMessage("Cùng khám phá và lưu lại những khoảnh khắc đẹp nhất nhé. <3"),
+    "give_a_cond" : MessageLookupByLibrary.simpleMessage("Đợi chút  nhé..."),
     "home_screen" : MessageLookupByLibrary.simpleMessage("Màn hình chính"),
     "info" : MessageLookupByLibrary.simpleMessage("Thông tin"),
     "lock_screen" : MessageLookupByLibrary.simpleMessage("Màn hình khoá"),

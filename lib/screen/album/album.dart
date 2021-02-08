@@ -16,6 +16,7 @@ import 'package:flutter_app_new/screen/photo_detail.dart';
 import 'package:flutter_app_new/widget/options_button_span.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 
 class AlbumHomePage extends StatefulWidget {
   String _listImageUrl;
@@ -26,14 +27,17 @@ class AlbumHomePage extends StatefulWidget {
   State<StatefulWidget> createState() => _AlbumPageState(_listImageUrl);
 }
 
-class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
+class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver, TickerProviderStateMixin {
   ScrollController _scrollController;
   bool _isLoadingMore = false;
   String listImageUrl;
   BuildContext blocContext;
+  AnimationController _lottieController;
+
   _AlbumPageState(this.listImageUrl) {
     _scrollController = new ScrollController();
     _scrollController.addListener(_onScroll);
+    _lottieController = AnimationController(vsync: this);
   }
 
   @override
@@ -46,7 +50,32 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver {
               blocContext = context;
               _isLoadingMore = false;
               if (listImg == null) {
-                return Container();
+                return Container(
+                  color: CommonColor.primaryColor,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset("assets/lottie_loading.json",
+                        controller: _lottieController,
+                        onLoaded: (composition) {
+                          _lottieController
+                            ..duration = composition.duration
+                            ..repeat();
+                        },
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: S.current.give_a_cond,
+                            style: CommonStyle.textStyleCustom(
+                                size: 24.0
+                            )
+                        ),
+                      ),
+                      SizedBox(height: 100,)
+                    ],
+                  ),
+                );
               }
               List<Photo> data = listImg;
               if(data?.length == 0)

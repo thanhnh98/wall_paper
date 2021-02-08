@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "empty_title" : MessageLookupByLibrary.simpleMessage("Sorry, nothing matches with keyword, please use other one T_T"),
     "favourite_list" : MessageLookupByLibrary.simpleMessage("Favorite photos"),
     "favourite_photo_des" : MessageLookupByLibrary.simpleMessage("Let\'s discover and save the best moments. <3"),
+    "give_a_cond" : MessageLookupByLibrary.simpleMessage("Give a second..."),
     "home_screen" : MessageLookupByLibrary.simpleMessage("Home Screen"),
     "info" : MessageLookupByLibrary.simpleMessage("Info"),
     "lock_screen" : MessageLookupByLibrary.simpleMessage("Lock Screen"),
