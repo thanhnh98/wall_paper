@@ -21,17 +21,10 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
 
   ListImageModel _data = ListImageModel();
   List<Photo> listPhotos = List();
-  AlbumModel lstAlbumTMP;
+  AlbumModel albumHolder;
 
   Stream<List<Photo>> init() async*{
-    listPhotos.clear();
-    await _loadImageRandom().then((value) => {
-      _data.photos = value.photos,
-      _data.nextPage = value.next_page,
-      listPhotos.addAll(value.photos),
-      lstAlbumTMP = value,
-    }).whenComplete(() => null);
-    yield List.of(listPhotos);
+    add(AlbumEvent.LOAD);
   }
 
   @override
@@ -39,11 +32,11 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
     switch(event){
       case AlbumEvent.LOAD:
         listPhotos.clear();
-        await _loadImageRandom().then((value) => {
+        await _loadImage().then((value) => {
           _data.photos = value.photos,
           _data.nextPage = value.next_page,
           listPhotos.addAll(value.photos),
-          lstAlbumTMP = value
+          albumHolder = value
         }).whenComplete(() => {
           print("LOADED COMPLETED")
         });
@@ -67,6 +60,18 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
           yield List.of(listPhotos);
         }
         break;
+      case AlbumEvent.REFRESH:
+        listPhotos.clear();
+        await _loadImageRandom().then((value) => {
+          _data.photos = value.photos,
+          _data.nextPage = value.next_page,
+          listPhotos.addAll(value.photos),
+          albumHolder = value
+        }).whenComplete(() => {
+          print("Refresh COMPLETED")
+        });
+        yield List.of(listPhotos);
+        break;
       case AlbumEvent.COMPLETED:
         break;
     }
@@ -84,11 +89,21 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
     List<String> listCategory = ImageCategory.listDefaultCategory;
     String param = listCategory[Random().nextInt(listCategory.length)];
     int itemPerPage = _itemPerPage;
-    int page = new Random().nextInt(20) + 1;
+    int totalPage = (albumHolder.total_results / itemPerPage) as int;
+    int page = new Random().nextInt(totalPage) + 1;
 
     try {
       // AlbumModel album = await ImageRepository().fetchAlbum(page, itemPerPage);
-      AlbumModel album = await ImageRepository().fetchAlbumWithUrl(listImageUrl+"&page=$page");
+      AlbumModel album = await ImageRepository().fetchAlbumWithUrl(listImageUrl + (totalPage > 0 ? "&page=$page" : ""));
+      return album;
+    }
+    catch(err){
+    }
+  }
+
+  Future<AlbumModel> _loadImage() async{
+    try {
+      AlbumModel album = await ImageRepository().fetchAlbumWithUrl(listImageUrl);
       return album;
     }
     catch(err){

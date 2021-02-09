@@ -159,7 +159,7 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver, 
                             slivers: [
                               CupertinoSliverRefreshControl(
                                 onRefresh: () {
-                                  context.read<AlbumBloc>().add(AlbumEvent.LOAD);
+                                  context.read<AlbumBloc>().add(AlbumEvent.REFRESH);
                                   return;
                                 },
                               ),

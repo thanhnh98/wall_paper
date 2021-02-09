@@ -7,20 +7,24 @@ class Constant{
   static int _perpage = 80;
   static List<HorizontalLandingItemModel> getListTopicLanding() => [
     HorizontalLandingItemModel(
+        S.current.landing_title_tet,
+        "https://images.pexels.com/photos/6156621/pexels-photo-6156621.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://api.pexels.com/v1/${"Tết"}?per_page=$_perpage"),
+    HorizontalLandingItemModel(
         S.current.curated,
-        "https://images.pexels.com/photos/5914065/pexels-photo-5914065.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://images.pexels.com/photos/6685425/pexels-photo-6685425.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
         "https://api.pexels.com/v1/${"curated"}?per_page=$_perpage"),
     HorizontalLandingItemModel(
         S.current.animal,
-        "https://images.pexels.com/photos/41315/africa-african-animal-cat-41315.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
         "https://api.pexels.com/v1/search?query=${"animal"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
         S.current.nature,
-        "https://images.pexels.com/photos/33041/antelope-canyon-lower-canyon-arizona.jpg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
         "https://api.pexels.com/v1/search?query=${"nature"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
         S.current.school,
-        "https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://images.pexels.com/photos/1516440/pexels-photo-1516440.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
         "https://api.pexels.com/v1/search?query=${"high+school"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
         S.current.text,
@@ -35,15 +39,14 @@ class Constant{
         "https://images.pexels.com/photos/7674/pexels-photo.jpg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
         "https://api.pexels.com/v1/search?query=${"traffic"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
-        S.current.beauty,
-        "https://images.pexels.com/photos/1372134/pexels-photo-1372134.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
-        "https://api.pexels.com/v1/search?query=${"female"}&per_page=$_perpage"),
+        S.current.mobile,
+        "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://api.pexels.com/v1/search?query=${"mobile"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
         S.current.random,
         "https://images.pexels.com/photos/572741/pexels-photo-572741.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
         "https://api.pexels.com/v1/search?query=${"country"}&per_page=$_perpage"),
   ];
-
 
   static List<HorizontalLandingItemModel> getListTopicSuggestSearchPage() => [
     HorizontalLandingItemModel(
@@ -75,9 +78,9 @@ class Constant{
         "https://images.pexels.com/photos/7674/pexels-photo.jpg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
         "https://api.pexels.com/v1/search?query=${"traffic"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
-        S.current.beauty,
-        "https://images.pexels.com/photos/1372134/pexels-photo-1372134.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
-        "https://api.pexels.com/v1/search?query=${"beautiful-girl"}&per_page=$_perpage"),
+        S.current.mobile,
+        "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://api.pexels.com/v1/search?query=${"mobile"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
         S.current.random,
         "https://images.pexels.com/photos/572741/pexels-photo-572741.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",

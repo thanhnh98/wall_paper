@@ -195,11 +195,11 @@ class S {
     );
   }
 
-  /// `Female`
-  String get beauty {
+  /// `Mobile`
+  String get mobile {
     return Intl.message(
-      'Female',
-      name: 'beauty',
+      'Mobile',
+      name: 'mobile',
       desc: '',
       args: [],
     );
@@ -310,6 +310,16 @@ class S {
     return Intl.message(
       'Give a second...',
       name: 'give_a_cond',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New year`
+  String get landing_title_tet {
+    return Intl.message(
+      'New year',
+      name: 'landing_title_tet',
       desc: '',
       args: [],
     );
