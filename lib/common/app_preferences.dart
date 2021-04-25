@@ -84,7 +84,6 @@ class AppPreferences{
             return false;
 
         listImageLocal.photos.forEach((photo) {
-            print("$id - ${photo.id} - ${photo.id == id}");
             if (photo.id == id) {
                 isLiked = true;
             }

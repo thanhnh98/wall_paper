@@ -419,6 +419,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, De
   @override
   void onReceivedUri(String url) async {
     Photo photo = await context?.read<PhotoDetailBloc>()?.getPhotoById(StringUtils.getPhotoIdFromUrl(url));
+    print("photo: ${photo}");
     NavigatorGlobal.pushPhotoDetailPage(context, photo);
   }
 }

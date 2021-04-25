@@ -56,8 +56,8 @@ class PhotoDetailBloc extends Bloc<PhotoDetailEvent, Photo>{
   Future<Photo> getPhotoById(int photoId) async{
       Photo photo = await ImageRepository().fetchPhotoById(photoId);
       bool isLiked = await AppPreferences.getImageLikedById(photoId);
+      isLiked??=false;
       photo.liked = isLiked;
-      print("$isLiked liked ${photo.liked}");
       return photo;
   }
 }
