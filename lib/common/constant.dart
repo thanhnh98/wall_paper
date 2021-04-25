@@ -6,26 +6,26 @@ class Constant{
   static int _height = 600;
   static int _perpage = 80;
   static List<HorizontalLandingItemModel> getListTopicLanding() => [
-    HorizontalLandingItemModel(
-        S.current.landing_title_tet,
-        "https://images.pexels.com/photos/6156621/pexels-photo-6156621.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
-        "https://api.pexels.com/v1/${"Tết"}?per_page=$_perpage"),
+    // HorizontalLandingItemModel(
+    //     S.current.landing_title_tet,
+    //     "https://images.pexels.com/photos/6156621/pexels-photo-6156621.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+    //     "https://api.pexels.com/v1/search?query=${"Tết"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
         S.current.curated,
-        "https://images.pexels.com/photos/6685425/pexels-photo-6685425.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://images.pexels.com/photos/7473029/pexels-photo-7473029.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
         "https://api.pexels.com/v1/${"curated"}?per_page=$_perpage"),
     HorizontalLandingItemModel(
         S.current.animal,
-        "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://images.pexels.com/photos/87403/cheetah-leopard-animal-big-87403.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
         "https://api.pexels.com/v1/search?query=${"animal"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
         S.current.nature,
-        "https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
-        "https://api.pexels.com/v1/search?query=${"nature"}&per_page=$_perpage"),
+        "https://images.pexels.com/photos/2365457/pexels-photo-2365457.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://api.pexels.com/v1/search?query=${"motor"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
-        S.current.school,
-        "https://images.pexels.com/photos/1516440/pexels-photo-1516440.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
-        "https://api.pexels.com/v1/search?query=${"high+school"}&per_page=$_perpage"),
+        S.current.motor_bike,
+        "https://images.pexels.com/photos/4513031/pexels-photo-4513031.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
+        "https://api.pexels.com/v1/search?query=${"motorcycle"}&per_page=$_perpage"),
     HorizontalLandingItemModel(
         S.current.text,
         "https://images.pexels.com/photos/261763/pexels-photo-261763.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=$_height&w=$_width",
@@ -132,4 +132,20 @@ class Constant{
   ];
 
 
+  static Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
+    if (message.containsKey('data')) {
+      // Handle data message
+      final dynamic data = message['data'];
+      print("DATA ----> ${data}");
+    }
+
+    if (message.containsKey('notification')) {
+      // Handle notification message
+      final dynamic notification = message['notification'];
+      print("NOTIFICATION ----> ${notification}");
+
+    }
+
+    // Or do other work.
+  }
 }

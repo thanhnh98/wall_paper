@@ -196,8 +196,7 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver, 
   }
 
   Widget _buildItemImage(Photo photo) {
-    String imgPath =
-        photo.liked ? "assets/heart_solid.svg" : "assets/heart_empty.svg";
+    String imgPath = photo.liked ? "assets/heart_solid.svg" : "assets/heart_empty.svg";
     return GestureDetector(
         onTap: () {
           _onClickImageItem(photo);
@@ -208,14 +207,17 @@ class _AlbumPageState extends State<AlbumHomePage> with WidgetsBindingObserver, 
               child: ClipRRect(
                   borderRadius: new BorderRadius.all(Radius.circular(10)),
                   child: Center(
-                    child: FadeInImage.assetNetwork(
-                      placeholder: 'assets/img_loading.gif',
-                      image: photo.src.tiny,
-                      fit: BoxFit.cover,
-                      height: double.infinity,
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                    ),
+                    child: Hero(
+                      tag: photo.id,
+                      child:  FadeInImage.assetNetwork(
+                        placeholder: 'assets/img_loading.gif',
+                        image: photo.src.tiny,
+                        fit: BoxFit.cover,
+                        height: double.infinity,
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                      ),
+                    )
                   )),
             ),
             Align(

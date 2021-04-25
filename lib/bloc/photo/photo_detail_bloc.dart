@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_app_new/bloc/photo/photo_detail_event.dart';
-import 'package:flutter_app_new/common/image_downloader.dart';
+import 'package:flutter_app_new/common/app_preferences.dart';
+import 'package:flutter_app_new/helper/image_downloader.dart';
 import 'package:flutter_app_new/model/photo.dart';
+import 'package:flutter_app_new/repository/image_repository.dart';
 import 'package:image_downloader/image_downloader.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,7 +14,7 @@ class PhotoDetailBloc extends Bloc<PhotoDetailEvent, Photo>{
   StreamController<int> _imageDownloadStream;
   var _lastPathDownloaded = "";
 
-  PhotoDetailBloc(Photo photo) : super(photo){
+  PhotoDetailBloc({Photo photo}) : super(photo){
     this._photo = photo;
     _imageDownloadStream = StreamController.broadcast();
   }
@@ -49,5 +51,13 @@ class PhotoDetailBloc extends Bloc<PhotoDetailEvent, Photo>{
 
   void dispose(){
     _imageDownloadStream.close();
+  }
+
+  Future<Photo> getPhotoById(int photoId) async{
+      Photo photo = await ImageRepository().fetchPhotoById(photoId);
+      bool isLiked = await AppPreferences.getImageLikedById(photoId);
+      photo.liked = isLiked;
+      print("$isLiked liked ${photo.liked}");
+      return photo;
   }
 }

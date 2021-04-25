@@ -14,11 +14,11 @@ class PhotoFavouriteBloc extends Bloc<PhotoFavouriteEvent, List<Photo>>{
   Stream<List<Photo>> mapEventToState(PhotoFavouriteEvent event) async* {
     switch(event){
       case PhotoFavouriteEvent.LOAD:
-        List<Photo> listPhoto = List();
+        List<Photo> listPhoto = [];
         await AppPreferences.getLikedImages().then((value) => {
-          listPhoto = value?.photos?.where((element) => element.liked).toList()
+          listPhoto = value?.photos?.where((element) => element.liked)?.toList()
         });
-        yield listPhoto;
+        yield listPhoto??[];
         break;
       case PhotoFavouriteEvent.INSERT:
         break;

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_new/bloc/observe/favourite_photo_observe.dart';
 import 'package:flutter_app_new/bloc/photo/photo_detail_bloc.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
+import 'package:flutter_app_new/dialog/share_photo_dialog.dart';
 import 'package:flutter_app_new/dialog/wallpaper_location_picker_dialog.dart';
 import 'package:flutter_app_new/generated/l10n.dart';
 import 'package:flutter_app_new/model/photo.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'full_image_screen.dart';
 
+// ignore: must_be_immutable
 class PhotoDetailPage extends StatefulWidget {
   Photo _photo;
   bool isThisPhotoDownloaded = false;
@@ -31,11 +33,11 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
 
   _PhotoDetailState(photo) {
     this._photo = photo;
-    _photoBloc = DownloadProgressProvider.of(context, photo: _photo);
   }
 
   @override
   Widget build(BuildContext context) {
+    _photoBloc = DownloadProgressProvider.of(context, photo: _photo);
     return Scaffold(
       body: Container(
           width: double.infinity,
@@ -51,7 +53,8 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
                 _buildBottomInfo()
               ],
             ),
-          )),
+          )
+      ),
     );
   }
 
@@ -60,12 +63,15 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
       onTap: () {
         _openFullScreen();
       },
-      child: FadeInImage.assetNetwork(
-        placeholder: '',
-        image: _photo.src.portrait,
-        fit: BoxFit.cover,
-        alignment: Alignment.center,
-      ),
+      child: Hero(
+        tag: _photo.id,
+        child: FadeInImage.assetNetwork(
+          placeholder: '',
+          image: _photo.src.portrait,
+          fit: BoxFit.cover,
+          alignment: Alignment.center,
+        ),
+      )
     );
   }
 
@@ -134,7 +140,9 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
                         SizedBox(width: 15,),
                         _buildIconSetBackground(),
                         SizedBox(width: 15,),
-                        _buildIconFavourite()
+                        _buildIconFavourite(),
+                        SizedBox(width: 15,),
+                        _buildIconSharing()
                       ],
                     ),
                   ],
@@ -179,13 +187,35 @@ class _PhotoDetailState extends State<PhotoDetailPage> {
       onTap: (){
         showDialog(
             context: context,
-            child: WallpaperDialog(_photo));
+            builder: (contet){
+              return WallpaperDialog(_photo);
+            }
+        );
       },
       child: _buildIcon(
         Icon(
           Icons.photo,
           size: 24,
         )
+      ),
+    );
+  }
+
+  Widget _buildIconSharing(){
+    return GestureDetector(
+      onTap: (){
+        showDialog(
+            context: context,
+            builder: (contet){
+              return SharePhotoDialog(_photo);
+            }
+        );
+      },
+      child: _buildIcon(
+          Icon(
+            Icons.share,
+            size: 24,
+          )
       ),
     );
   }

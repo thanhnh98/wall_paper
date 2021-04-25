@@ -7,7 +7,7 @@ class TranslateNetwork{
   ClientOptions _client = new ClientOptions(new http.Client());
 
   Future<http.Response> post(String text, String from, String to) {
-    return _client.post(_getUrlTranslate(), body: _getBodyRaw(text, from, to));
+    return _client.post(Uri.parse(_getUrlTranslate()), body: _getBodyRaw(text, from, to));
   }
 
   String _getUrlTranslate() {

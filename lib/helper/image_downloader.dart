@@ -1,10 +1,10 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_app_new/bloc/wall_paper/wall_paper_event.dart';
+import 'package:flutter_app_new/method_channel/method_channel.dart';
 import 'package:image_downloader/image_downloader.dart';
 
 class ImageDownloadHelper {
-  static MethodChannel _wallpaperUpdateMethod =
-      const MethodChannel('update_wallpaper');
+  static MethodChannel _wallpaperUpdateMethod = AppMethodChannel.wallpaperUpdateMethod;
 
   static var _HOME_SCREEN = "set_home_screen";
   static var _LOCK_SCREEN = "set_lock_screen";
@@ -14,6 +14,7 @@ class ImageDownloadHelper {
   
   static Future<String> downloadImageUrl(String url) async {
     try {
+      print("downloading url: ${url}");
       var imageId = await ImageDownloader.downloadImage(url);
       var path = await ImageDownloader.findPath(imageId);
 
@@ -26,9 +27,9 @@ class ImageDownloadHelper {
     }
   }
   
-  static Future<String> setBackgroundOnly(String path, ScreenType type) async{
+  static Future<String> setBackground(String path, ScreenType type) async{
     String location = _HOME_SCREEN; // or location = WallpaperManager.LOCK_SCREEN;
-
+    print("set background ${path}, type = ${type.toString()}");
     if (type == ScreenType.HOME_SCREEN) location = _HOME_SCREEN;
 
     if (type == ScreenType.LOCK_SCREEN) location = _LOCK_SCREEN;
@@ -41,47 +42,31 @@ class ImageDownloadHelper {
       await _wallpaperUpdateMethod.invokeMethod(location, path).then((value) => {
         pathResult = value
       });
-    } on PlatformException {}
+    } on PlatformException {
+
+    }
     
     return pathResult;
 
   }
 
   static Future<String> setDownloadAndBackground(String url, ScreenType type) async {
-    return _downloadAndSetBackground(url, type);
+    return downloadImageUrl(url).then((value) => setBackground(value, type));
   }
 
-  static Future<String> _downloadAndSetBackground(
-      String url, ScreenType type) async {
-    var imageId = await ImageDownloader.downloadImage(url);
-    if (imageId == null) {
-      return Future.value(RESULT_FAILED);
-    }
-
-    //Below is a method of obtaining saved image information.
-    var fileName = await ImageDownloader.findName(imageId);
-    var path = await ImageDownloader.findPath(imageId);
-    var size = await ImageDownloader.findByteSize(imageId);
-    var mimeType = await ImageDownloader.findMimeType(imageId);
-
-    String location =
-        _HOME_SCREEN; // or location = WallpaperManager.LOCK_SCREEN;
-
-    if (type == ScreenType.HOME_SCREEN) location = _HOME_SCREEN;
-
-    if (type == ScreenType.LOCK_SCREEN) location = _LOCK_SCREEN;
-
-    if (type == ScreenType.BOTH_SCREENS) location = _BOTH_SCREENS;
-
-    String pathResult = RESULT_FAILED;
-
-    try {
-      await _wallpaperUpdateMethod.invokeMethod(location, path).then((value) => {
-            pathResult = value
-          });
-    } on PlatformException {}
-
-    return Future.value(pathResult);
-
-  }
+  // static Future<String> downloadImage(String url) async {
+  //   var imageId = await ImageDownloader.downloadImage(url);
+  //   if (imageId == null) {
+  //     return Future.value(RESULT_FAILED);
+  //   }
+  //
+  //   //Below is a method of obtaining saved image information.
+  //   var fileName = await ImageDownloader.findName(imageId);
+  //   var path = await ImageDownloader.findPath(imageId);
+  //   var size = await ImageDownloader.findByteSize(imageId);
+  //   var mimeType = await ImageDownloader.findMimeType(imageId);
+  //
+  //   return Future.value(path);
+  //
+  // }
 }

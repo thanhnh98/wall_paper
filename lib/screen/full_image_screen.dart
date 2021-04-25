@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_app_new/bloc/photo/photo_detail_bloc.dart';
+import 'package:flutter_app_new/common/color_utils.dart';
 import 'package:flutter_app_new/dialog/wallpaper_location_picker_dialog.dart';
 import 'package:flutter_app_new/model/photo.dart';
+import 'package:flutter_app_new/utils/screen_util.dart';
 import 'package:flutter_app_new/widget/download_progress_provider.dart';
 import 'package:flutter_app_new/widget/processing_widget.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 
 class ImageFullPage extends StatefulWidget {
   Photo _photo;
@@ -20,22 +24,31 @@ class _ImageFullPageState extends State<ImageFullPage> {
   PhotoDetailBloc _photoBloc;
   Photo _photo;
   bool _isImageTaped = false;
+  bool isBeginDrag = false;
 
-  _ImageFullPageState(this._photo) {
-    _photoBloc = DownloadProgressProvider.of(context, photo: _photo);
-  }
+  _ImageFullPageState(this._photo);
 
   @override
   Widget build(BuildContext context) {
+    _photoBloc = DownloadProgressProvider.of(context, photo: _photo);
     return Stack(
       children: [
         Container(
           width: double.infinity,
           height: double.infinity,
-
-          child: InteractiveViewer(
-            child: _buildImageView(),
-          )
+          color: CommonColor.black_33,
+          child: Lottie.asset("assets/finding_image.json"),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: _buildImageView(),
+              )
+          ),
         ),
         Align(
           child: GestureDetector(
@@ -80,13 +93,15 @@ class _ImageFullPageState extends State<ImageFullPage> {
           this._isImageTaped = !this._isImageTaped;
         });
       },
-      child: FadeInImage.assetNetwork(
-        placeholder: "assets/img_loading_2.gif",
-        image: _photo.src.original,
-        fit: BoxFit.cover,
-        width: double.infinity,
-        height: double.infinity,
-      ),
+      child: Hero(
+        tag: _photo.id,
+        child: FadeInImage.assetNetwork(
+          placeholder: "",
+          image: _photo.src.original,
+          fit: BoxFit.fitHeight,
+          height: double.infinity,
+        ),
+      )
     );
   }
 
@@ -115,7 +130,7 @@ class _ImageFullPageState extends State<ImageFullPage> {
       onTap: () {
         showDialog(
             context: context,
-            child: WallpaperDialog(_photo));
+            builder: (context) => WallpaperDialog(_photo));
       },
       child: _buildIcon(
           Icon(

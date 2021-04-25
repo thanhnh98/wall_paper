@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "959915786285",
+    "project_id": "wallpaper-bfdca",
+    "storage_bucket": "wallpaper-bfdca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959915786285:android:f32094f51fbcde684a38a4",
+        "android_client_info": {
+          "package_name": "com.tlife.wall_paper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959915786285-88m3ie940ftomte3t3qrgrkaaa5h2uhc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tlife.wall_paper",
+            "certificate_hash": "e8cba2c7ee5bfa28dffff0ca60e7b3971a2c6110"
+          }
+        },
+        {
+          "client_id": "959915786285-7uoq45icsh68usaujlh5sk90evp0bi4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrlerQA1qGhbtF01mjnBOJnPsOtVbwVw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959915786285-7uoq45icsh68usaujlh5sk90evp0bi4f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

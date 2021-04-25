@@ -28,7 +28,8 @@ class NavigatorGlobal{
   static Future pushVideoPage(BuildContext context){
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text("Tính năng đang phát triển"),duration: Duration(milliseconds: 500),
-    ));    // Navigator.push(context,
+    ));
+    // Navigator.push(context,
     //     MaterialPageRoute(builder: (context) => VideoPage()));
   }
 

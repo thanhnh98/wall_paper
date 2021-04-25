@@ -324,6 +324,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Motor`
+  String get motor_bike {
+    return Intl.message(
+      'Motor',
+      name: 'motor_bike',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download app at:`
+  String get download_now {
+    return Intl.message(
+      'Download app at:',
+      name: 'download_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share this photo`
+  String get share_now {
+    return Intl.message(
+      'Share this photo',
+      name: 'share_now',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

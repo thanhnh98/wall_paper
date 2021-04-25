@@ -4,28 +4,42 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_bloc.dart';
 import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_event.dart';
+import 'package:flutter_app_new/bloc/photo/photo_detail_bloc.dart';
 import 'package:flutter_app_new/common/color_utils.dart';
 import 'package:flutter_app_new/common/constant.dart';
 import 'package:flutter_app_new/common/navigator_custom.dart';
 import 'package:flutter_app_new/common/sized_config.dart';
 import 'package:flutter_app_new/common/style_utils.dart';
 import 'package:flutter_app_new/generated/l10n.dart';
+import 'package:flutter_app_new/helper/deeplink.dart';
 import 'package:flutter_app_new/model/horizontal_landing_item.dart';
 import 'package:flutter_app_new/model/photo.dart';
+import 'package:flutter_app_new/utils/string_utils.dart';
 import 'package:flutter_app_new/widget/vertical_left_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
+  HomeScreen();
+
   @override
-  State<StatefulWidget> createState() => _HomeScreenState();
+  State<StatefulWidget> createState(){
+   return _HomeScreenState();
+  }
 }
 
-class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver, DeeplinkCallbackListener{
+  _HomeScreenState();
+
   @override
   void initState() {
     super.initState();
+    DeeplinkHelper.newInstance.registerDeeplinkListener(this);
     WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      DeeplinkHelper.newInstance.excuteExistingDeeplink();
+    });
   }
 
   @override
@@ -74,7 +88,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildSearchComponent(),
+                  Hero(
+                      tag: "search",
+                      child: _buildSearchComponent()
+                  ),
                   SizedBox(
                     height: SizeConfig.verticalSize(2),
                   ),
@@ -91,7 +108,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             size: CommonStyle.super_extra_text_size,
                             color: CommonColor.white,
                             fontStyle: FontStyle.normal,
-                          )),
+                          )
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -136,32 +154,34 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             itemCount: 1,
                             itemBuilder: (context, index){
                               return _buildListFavouriteEmpty();
-                            }
-                        );
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: RichText(
-                              text: TextSpan(
-                                  text: S.current.favourite_list,
-                                  style: CommonStyle.textStyleCustom(
+                            });
+                      return StaggeredGridView.countBuilder(
+                        crossAxisCount: 2,
+                        controller: scrollController,
+                        itemCount: listImg.length + 1,
+                        itemBuilder: (context, index){
+                          if (index == 0)
+                            return Container(
+                              height: 32,
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: S.current.favourite_list,
+                                    style: CommonStyle.textStyleCustom(
                                       size: 24.0,
                                       weight: FontWeight.bold,
+                                    ),
                                   ),
+                                ),
                               ),
-                            ),
-                          ),
-                          Flexible(child: GridView.builder(
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                              controller: scrollController,
-                              itemCount: listImg.length,
-                              itemBuilder: (context, index){
-                                return _buildHorizontalItem(listImg[index]);
-                              }
-                          ))
-                        ],
+                            );
+                          else
+                            return _buildHorizontalItem(listImg[index - 1]);
+                        },
+                        staggeredTileBuilder: (index){
+                          return new StaggeredTile.count(index == 0? 2 : 1, index == 0 ? 0.3 : 1);
+                        },
                       );
                     })
                   ),
@@ -295,14 +315,17 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 child: ClipRRect(
                     borderRadius: new BorderRadius.all(Radius.circular(10)),
                     child: Center(
-                      child: FadeInImage.assetNetwork(
-                        placeholder: 'assets/img_loading.gif',
-                        image: photo.src.tiny,
-                        fit: BoxFit.cover,
-                        height: double.infinity,
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                      ),
+                      child: Hero(
+                        tag: photo.id,
+                        child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/img_loading.gif',
+                          image: photo.src.tiny,
+                          fit: BoxFit.cover,
+                          height: double.infinity,
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                        ),
+                      )
                     )),
               ),
               Align(
@@ -388,4 +411,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     );
   }
 
+  @override
+  void didUpdateWidget(covariant HomeScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void onReceivedUri(String url) async {
+    Photo photo = await context?.read<PhotoDetailBloc>()?.getPhotoById(StringUtils.getPhotoIdFromUrl(url));
+    NavigatorGlobal.pushPhotoDetailPage(context, photo);
+  }
 }

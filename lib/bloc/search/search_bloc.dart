@@ -12,9 +12,9 @@ class SearchBloc{
   }
 
   Future<void> handleSearch(String content) async{
-    // String contentTranslated = await TranslateRepository().getTextTranslated(content);
-    // print("content = $contentTranslated");
-    _searchContentStream.add(_getUrlSearchWithContent(content));
+     String contentTranslated = await TranslateRepository().getTextTranslated(content);
+     //String contentTranslated = content
+    _searchContentStream.add(_getUrlSearchWithContent(contentTranslated));
   }
 
   String _getUrlSearchWithContent(String content){

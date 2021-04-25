@@ -6,14 +6,11 @@ import 'package:flutter_app_new/model/photo.dart';
 class DownloadProgressProvider extends InheritedWidget{
   // ignore: close_sinks
   static PhotoDetailBloc _photoBloc;
-  static Photo _photo;
   DownloadProgressProvider({
         Key key,
         @required Photo data,
         @required Widget child
-  }): super(key: key, child: child){
-    _photo = data;
-  }
+  }): super(key: key, child: child);
 
 
 
@@ -22,6 +19,6 @@ class DownloadProgressProvider extends InheritedWidget{
     return true;
   }
 
-  static PhotoDetailBloc of(BuildContext context,{Photo photo}) => _photoBloc??=PhotoDetailBloc(_photo);
+  static PhotoDetailBloc of(BuildContext context,{Photo photo}) => _photoBloc??=PhotoDetailBloc(photo: photo);
 
 }

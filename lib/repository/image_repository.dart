@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter_app_new/common/network/network.dart';
 import 'package:flutter_app_new/model/album.dart';
+import 'package:flutter_app_new/model/photo.dart';
 
 class ImageRepository extends ClientNetwork{
   Future<AlbumModel> fetchAlbum(int startPage, int perPage) async{
@@ -22,5 +23,15 @@ class ImageRepository extends ClientNetwork{
     }
     else
       throw Exception("load api failed");
+  }
+  
+  Future<Photo> fetchPhotoById(int photoId) async{
+    final res = await get("https://api.pexels.com/v1/photos/$photoId");
+
+    if (res.statusCode == 200){
+      return Photo.fromJson(json.decode(res.body));
+    }
+    else
+      throw Exception("load photo failed");
   }
 }

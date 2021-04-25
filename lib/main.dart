@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_new/bloc/home/photo_liked/photo_favourite_bloc.dart';
@@ -7,6 +6,8 @@ import 'package:flutter_app_new/bloc/home/section/fashion.dart';
 import 'package:flutter_app_new/bloc/home/section/nature.dart';
 import 'package:flutter_app_new/bloc/home/section/text.dart';
 import 'package:flutter_app_new/bloc/observe/favourite_photo_observe.dart';
+import 'package:flutter_app_new/bloc/photo/photo_detail_bloc.dart';
+import 'package:flutter_app_new/helper/deeplink.dart';
 import 'package:flutter_app_new/screen/album/album.dart';
 import 'package:flutter_app_new/screen/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,13 @@ void main() {
 }
 
 
-class App extends StatelessWidget with RouteAware {
+class App extends StatefulWidget{
+
+  @override
+  State<StatefulWidget> createState() => _AppState();
+}
+
+class _AppState extends State<App> with RouteAware{
   final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
   @override
@@ -55,6 +62,9 @@ class App extends StatelessWidget with RouteAware {
           ),
           BlocProvider(
             create: (context) => FavouritePhotoObserve.of(),
+          ),
+          BlocProvider(
+              create: (context) => PhotoDetailBloc(),
           )
         ],
         child: SafeArea(
@@ -67,7 +77,6 @@ class App extends StatelessWidget with RouteAware {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
-
       ],
       supportedLocales: S.delegate.supportedLocales,
       navigatorObservers: [
@@ -75,4 +84,5 @@ class App extends StatelessWidget with RouteAware {
       ],
     );
   }
+
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class CommonStyle{
 
+  static final double small_text_size = 14.0;
   static final double normal_text_size = 16.0;
   static final double large_text_size = 20.0;
   static final double larger_text_size = 24.0;
@@ -9,6 +10,14 @@ class CommonStyle{
   static final double super_extra_text_size = 32.0;
 
   static final TextStyle normalTextStyle = TextStyle(
+    fontFamily: 'SourceSans Pro',
+    fontSize: normal_text_size,
+    fontWeight: FontWeight.normal,
+    height: 1.15,
+    color: Color(0xFFFFFFFF),
+  );
+
+  static final TextStyle smallTextStyle = TextStyle(
     fontFamily: 'SourceSans Pro',
     fontSize: normal_text_size,
     fontWeight: FontWeight.normal,

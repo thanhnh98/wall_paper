@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:isolate';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_app_new/bloc/wall_paper/wall_paper_event.dart';
-import 'package:flutter_app_new/common/image_downloader.dart';
+import 'package:flutter_app_new/helper/image_downloader.dart';
+import 'package:flutter_app_new/main.dart';
 import 'package:flutter_app_new/model/photo.dart';
+import 'package:flutter_app_new/utils/screen_util.dart';
 import 'package:flutter_app_new/widget/download_progress_provider.dart';
 
 class WallPaperBloc extends DownloadProgressProvider{
@@ -41,24 +41,31 @@ class WallPaperBloc extends DownloadProgressProvider{
     stream.add(WallPaperEvent.LOADING);
 
     String pathDownloaded;
-
-    if(_lastPathDownloaded != null) {
+    //print("DOAWNLOADED ${_lastPathDownloaded}");
+    if(_lastPathDownloaded != null && _lastPathDownloaded.isNotEmpty) {
       try {
-        pathDownloaded = await ImageDownloadHelper.setBackgroundOnly(_lastPathDownloaded, type);
+        pathDownloaded = await ImageDownloadHelper.setBackground(_lastPathDownloaded, type);
       }catch(e){
-        pathDownloaded = await ImageDownloadHelper.setDownloadAndBackground(_photo.src.original, type);
+        _lastPathDownloaded = await ImageDownloadHelper.downloadImageUrl(generateMagicUrl(_photo));
+        pathDownloaded = await ImageDownloadHelper.setBackground(_lastPathDownloaded, type);
       }
     }
     else {
-      pathDownloaded = await ImageDownloadHelper.setDownloadAndBackground(_photo.src.original, type);
+      _lastPathDownloaded = await ImageDownloadHelper.downloadImageUrl(generateMagicUrl(_photo));
+      pathDownloaded = await ImageDownloadHelper.setBackground(_lastPathDownloaded, type);
     }
-
+    //print("final result --> ${pathDownloaded}");
     if(pathDownloaded == null || pathDownloaded == ImageDownloadHelper.RESULT_FAILED)
       stream.add(WallPaperEvent.ERROR);
     else {
       this._lastPathDownloaded = pathDownloaded;
       stream.add(WallPaperEvent.COMPLETED);
     }
+  }
+
+  String generateMagicUrl(Photo photo){
+    String originUrl = photo.src.original;
+    return originUrl = photo.src.original+"?auto=compress";
   }
 
 

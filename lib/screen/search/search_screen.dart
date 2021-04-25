@@ -109,6 +109,8 @@ class _SearchScreenState extends State<SearchScreen> with TickerProviderStateMix
                         ),
                         textCapitalization: TextCapitalization.sentences,
                         onSubmitted: (s){
+                          if (s.isEmpty)
+                            return;
                           _searchBloc.handleSearch(s);
                           _controller.repeat();
                         },
@@ -118,6 +120,8 @@ class _SearchScreenState extends State<SearchScreen> with TickerProviderStateMix
                         alignment: Alignment(1, 0),
                         child: GestureDetector(
                           onTap: (){
+                            if(_textController?.text?.isEmpty)
+                              return;
                             _searchBloc.handleSearch(_textController?.text);
                             _controller.repeat();
                             FocusScope.of(context).unfocus();

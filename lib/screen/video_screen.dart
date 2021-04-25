@@ -36,7 +36,6 @@ class _VideoPageState extends State<VideoPage>{
           child: Scaffold(
             body: BlocBuilder<VideoBloc, VideoScreenState>(
               builder: (context, state){
-                print("received data ${state?.data?.videos?.length}");
                 blocContext??=context;
                 if(state != null && state.event == VideoEvent.COMPLETED) {
                   _isLoadingMore = false;

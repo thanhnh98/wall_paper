@@ -20,7 +20,7 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
   var _isLoadingMore = false;
 
   ListImageModel _data = ListImageModel();
-  List<Photo> listPhotos = List();
+  List<Photo> listPhotos = [];
   AlbumModel albumHolder;
 
   Stream<List<Photo>> init() async*{
@@ -40,7 +40,7 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
         }).whenComplete(() => {
           print("LOADED COMPLETED")
         });
-        yield List.of(listPhotos);
+        yield await markLikedImage(listPhotos);
         break;
 
       case AlbumEvent.LOAD_MORE:
@@ -57,7 +57,7 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
           }).whenComplete(() => {
             print("LOAD MORE COMPLETED ${listPhotos?.length}")
           });
-          yield List.of(listPhotos);
+          yield await markLikedImage(listPhotos);
         }
         break;
       case AlbumEvent.REFRESH:
@@ -70,11 +70,27 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
         }).whenComplete(() => {
           print("Refresh COMPLETED")
         });
-        yield List.of(listPhotos);
+        yield await markLikedImage(listPhotos);
         break;
       case AlbumEvent.COMPLETED:
         break;
     }
+  }
+
+  Future<List<Photo>> markLikedImage(List<Photo> listPhotos) async {
+
+    ListImageModel listLikedImageModel = await AppPreferences.getLikedImages();
+    print("PROCESSING -> ${listLikedImageModel.toJson()}");
+    if(listLikedImageModel.photos == null || listLikedImageModel.photos.isEmpty)
+      return List.of(listPhotos);
+
+    listLikedImageModel.photos.forEach((likedPhoto) {
+      listPhotos.where((element) => element.id == likedPhoto.id).forEach((foundPhoto) {
+        foundPhoto.liked = true;
+      });
+    });
+
+    return List.of(listPhotos);
   }
 
   Future<AlbumModel> _loadMoreAlbumImage() async{
@@ -93,7 +109,6 @@ class AlbumBloc extends Bloc<AlbumEvent, List<Photo>>{
     int page = new Random().nextInt(totalPage) + 1;
 
     try {
-      // AlbumModel album = await ImageRepository().fetchAlbum(page, itemPerPage);
       AlbumModel album = await ImageRepository().fetchAlbumWithUrl(listImageUrl + (totalPage > 0 ? "&page=$page" : ""));
       return album;
     }

@@ -67,4 +67,30 @@ class AppPreferences{
         return listImageLocal;
     }
 
+    static Future<bool> getImageLikedById(int id) async{
+        SharedPreferences pref = await _prefs;
+        String jsonListData = pref.getString(_IMAGE_HASH);
+        bool isLiked;
+
+        if (jsonListData == null)
+            return false;
+
+        ListImageModel listImageLocal = ListImageModel.fromJson(json.decode(jsonListData));
+
+        if (listImageLocal == null)
+            return false;
+
+        if (listImageLocal.photos == null || listImageLocal.photos.isEmpty)
+            return false;
+
+        listImageLocal.photos.forEach((photo) {
+            print("$id - ${photo.id} - ${photo.id == id}");
+            if (photo.id == id) {
+                isLiked = true;
+            }
+        });
+        return isLiked;
+
+    }
+
 }
